@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "916199281652",
+    "project_id": "chopspick-dca1e",
+    "storage_bucket": "chopspick-dca1e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:916199281652:android:edd5b60c83dfd4a6201fa1",
+        "android_client_info": {
+          "package_name": "com.tugcenaz.chopspick"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "916199281652-v079r1l5jes9e0ldf3shb3unbg56mgmb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqXNLeMYrhtrg_uWipFNrb6p78qXKsrs8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "916199281652-v079r1l5jes9e0ldf3shb3unbg56mgmb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
