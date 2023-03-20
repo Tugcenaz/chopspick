@@ -1,9 +1,16 @@
+import 'package:chopspick/app/bindings/initial_bindings.dart';
 import 'package:chopspick/app/views/intro_page.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-void main() {
+import 'app/views/landing_page.dart';
+
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  InitialBinding().dependencies();
   runApp(const MyApp());
 }
 
@@ -19,11 +26,12 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (BuildContext context, Widget? child) {
         return GetMaterialApp(
+          initialBinding: InitialBinding(),
           title: 'Flutter Demo',
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          home: const IntroPage(),
+          home: LandingPage(),
         );
       },
     );

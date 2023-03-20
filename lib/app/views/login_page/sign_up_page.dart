@@ -1,6 +1,6 @@
 import 'package:chopspick/app/components/custom_button.dart';
 import 'package:chopspick/app/controllers/user_controller.dart';
-import 'package:chopspick/app/views/login_page/sign_up_page.dart';
+import 'package:chopspick/app/views/login_page/login_page.dart';
 import 'package:chopspick/core/constants/constants.dart';
 import 'package:chopspick/core/theme/colors.dart';
 import 'package:chopspick/core/theme/text_styles.dart';
@@ -9,8 +9,8 @@ import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({Key? key}) : super(key: key);
+class SignUpPage extends StatelessWidget {
+  SignUpPage({Key? key}) : super(key: key);
   String? email;
   String? password;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -22,7 +22,7 @@ class LoginPage extends StatelessWidget {
     if (_formKey.currentState!.validate()) {
       debugPrint('Email:$email  şifre: $password');
       if (email != null && password != null) {
-        userController.loginUser(email: email!, password: password!);
+        userController.registerUser(email: email!, password: password!);
       }
     }
   }
@@ -51,7 +51,7 @@ class LoginPage extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 38.w),
                     child: Text(
-                      'Hesabına giriş yap',
+                      'Hesap oluştur',
                       style: TextStyles.titleBlackTextStyle1(fontSize: 20.sp),
                     ),
                   ),
@@ -112,7 +112,7 @@ class LoginPage extends StatelessWidget {
           children: [
             CustomButton(
               fontSize: 20.sp,
-              title: 'Giriş yap',
+              title: 'Kaydol',
               onPressed: () {
                 formSubmit();
               },
@@ -125,7 +125,7 @@ class LoginPage extends StatelessWidget {
               height: 55.h,
             ),
             Text(
-              '-Şunladan biriyle giriş yap-',
+              '-Şunlardan biriyle giriş yap-',
               style: TextStyles.titleBlackTextStyle1(fontSize: 15.sp),
             ),
             SizedBox(
@@ -145,17 +145,17 @@ class LoginPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Hesabın yok mu? ',
+                  'Zaten hesabın var mı? ',textAlign: TextAlign.center,
                   style: TextStyles.titleBlackTextStyle1(
                       fontSize: 18.sp, fontWeight: FontWeight.w600),
                 ),
                 Bounceable(
                     onTap: () {
                       debugPrint('tıklandıı');
-                      Get.to(()=>SignUpPage());
+                      Get.back();
                     },
                     child: Text(
-                      'Kaydol',
+                      'Giriş yap',
                       style: TextStyles.titleWhiteTextStyle1(
                         fontSize: 18.sp,
                       ),

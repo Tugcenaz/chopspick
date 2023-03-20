@@ -1,5 +1,6 @@
 import 'package:chopspick/app/components/custom_button.dart';
 import 'package:chopspick/app/views/login_page/login_page.dart';
+import 'package:chopspick/app/views/login_page/sign_up_page.dart';
 import 'package:chopspick/core/constants/constants.dart';
 import 'package:chopspick/core/theme/colors.dart';
 import 'package:chopspick/core/theme/text_styles.dart';
@@ -40,7 +41,9 @@ class IntroPage extends StatelessWidget {
             Center(
               child: CustomButton(
                 title: 'Get Started',
+                titleColor:CustomColors.introGradientPurple,
                 width: 213.w,
+                height: 60.h,
                 onPressed: () {
                   Get.to(() =>  LoginPage());
                 },

@@ -5,17 +5,25 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomButton extends StatelessWidget {
   Color? color;
-  String title;
+  String? title;
+  Color? titleColor;
   double? width;
+  double? fontSize;
+  double? height;
   Widget? child;
+  double? radius;
   VoidCallback onPressed;
 
   CustomButton(
       {Key? key,
-      required this.title,
+      this.title,
       this.color,
+      this.radius,
       this.child,
       this.width,
+      this.height,
+      this.fontSize,
+      this.titleColor,
       required this.onPressed})
       : super(key: key);
 
@@ -24,17 +32,19 @@ class CustomButton extends StatelessWidget {
     return Bounceable(
       onTap: onPressed,
       child: Container(
+        height: height,
         width: width ?? double.infinity,
-        constraints: BoxConstraints(minHeight: 60.h),
         alignment: Alignment.center,
         decoration: BoxDecoration(
             color: color ?? Colors.white,
-            borderRadius: BorderRadius.circular(25.sp)),
+            borderRadius: BorderRadius.circular(radius ?? 25.sp)),
         child: child ??
             Text(
-              title,
+              title!,
               style: TextStyles.titleWhiteTextStyle1(
-                  color: const Color(0xff644AB5), fontWeight: FontWeight.w600),
+                  fontSize: fontSize,
+                  color: titleColor,
+                  fontWeight: FontWeight.w600),
               textAlign: TextAlign.center,
             ),
       ),
