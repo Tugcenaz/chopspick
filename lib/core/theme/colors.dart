@@ -12,4 +12,12 @@ class CustomColors {
   static const Color loginPagePurple2 = Color(0xFF6c4d7d);
 
   static const Color signInButtonColor = Color(0xFF6e5963);
+
+
+  static const Color primaryColor = Color(0xFF6e5963);
+
+  static const greyTitleColor=Color(0xFF969696);
+  static const textFormFieldFillColor=Color(0xFFD9C9C9);
 }
+
+

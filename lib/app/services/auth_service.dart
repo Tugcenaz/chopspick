@@ -1,6 +1,10 @@
+import 'package:chopspick/app/components/dialogs.dart';
 import 'package:chopspick/app/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../core/constants/service_errors.dart';
 
 class AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -19,17 +23,13 @@ class AuthService {
           createdAt:
               credential.user?.metadata.creationTime?.millisecondsSinceEpoch,
         );
-        Get.snackbar('Tammmamm', 'Kayıt başarılı');
+        Dialogs.showSuccesDialog(
+            message:
+            "Harika! Kayıt tamamlandı.");
         return userModel;
       }
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
-      }
-    } catch (e) {
-      print(e);
+      Dialogs.showErrorDialog(message: Errors.show(e.code));
     }
   }
 
@@ -46,14 +46,22 @@ class AuthService {
     await _firebaseAuth.signOut();
   }
 
-  loginUser({required String email, required String password}) async {
-    UserCredential userCredential = await _firebaseAuth
-        .signInWithEmailAndPassword(email: email, password: password);
-    if (userCredential.user != null) {
-      UserModel userModel = UserModel(
-          email: userCredential.user!.email, userId: userCredential.user!.uid);
-      Get.snackbar('Tammmamm', 'Giriş başarılı');
-      return userModel;
+  Future<UserModel?> loginUser(
+      {required String email, required String password}) async {
+    try {
+      UserCredential userCredential = await _firebaseAuth
+          .signInWithEmailAndPassword(email: email, password: password);
+      if (userCredential.user != null) {
+        UserModel userModel = UserModel(
+            email: userCredential.user!.email,
+            userId: userCredential.user!.uid);
+        Get.snackbar('Tammmamm', 'Giriş başarılı');
+        return userModel;
+      }
+    } on FirebaseAuthException catch (e) {
+      Dialogs.showErrorDialog(message: Errors.show(e.code));
     }
   }
+
+
 }

@@ -43,7 +43,7 @@ class SignUpPage extends StatelessWidget {
                   CustomColors.loginPageGradientBlue,
                 ])),
             child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 200.h),
+              padding: EdgeInsets.symmetric(vertical: 150.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -68,8 +68,17 @@ class SignUpPage extends StatelessWidget {
                               onSaved: (String? val) {
                                 email = val;
                               },
+                              validator: (String? value) {
+                                if (value != null) {
+                                  bool isEmail = GetUtils.isEmail(value);
+                                  if (isEmail == false) {
+                                    return 'Geçersiz email';
+                                  }
+                                }
+                              },
                             ),
                             TextFormField(
+                              obscureText: true,
                               onSaved: (String? val) {
                                 password = val;
                               },
@@ -145,7 +154,8 @@ class SignUpPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Zaten hesabın var mı? ',textAlign: TextAlign.center,
+                  'Zaten hesabın var mı? ',
+                  textAlign: TextAlign.center,
                   style: TextStyles.titleBlackTextStyle1(
                       fontSize: 18.sp, fontWeight: FontWeight.w600),
                 ),

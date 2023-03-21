@@ -1,3 +1,4 @@
+import 'package:chopspick/core/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,4 +21,14 @@ class TextStyles {
         height: 1.5,
         letterSpacing: 1.1);
   }
+
+  static TextStyle titleGreyTextStyle1(
+      {Color? color, FontWeight? fontWeight,double? fontSize}) {
+    return GoogleFonts.poppins(fontSize: fontSize ?? 20.sp,
+        color: color ?? CustomColors.greyTitleColor,
+        fontWeight: fontWeight ?? FontWeight.w400,
+        height: 1.5,
+        letterSpacing: 1.1);
+  }
+
 }

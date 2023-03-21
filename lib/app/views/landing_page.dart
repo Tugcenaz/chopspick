@@ -1,5 +1,5 @@
 import 'package:chopspick/app/controllers/user_controller.dart';
-import 'package:chopspick/app/views/home_page.dart';
+import 'package:chopspick/app/views/home_page/home_page.dart';
 import 'package:chopspick/app/views/intro_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
