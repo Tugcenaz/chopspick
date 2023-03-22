@@ -45,15 +45,25 @@ class _FoodCategoriesListViewPageState
         onTap: () async {
           productController.selectCategory(categoryList[index]);
           ////urunleri getir
-          var selectedProducts = await firestore
-              .collection('products')
-              .where('categoryId',
-                  isEqualTo: productController.selectedCategory.value.foodId)
-              .get();
-          productController.productList.value = [];
-          for (var element in selectedProducts.docs) {
-            productController.productList.value
-                .add(ProductModel.fromMap(element.data()));
+          if (productController.selectedCategory.value.foodId == 0) {
+            QuerySnapshot<Map<String, dynamic>> allProducts =
+                await firestore.collection('products').get();
+            productController.productList.value = [];
+            for (var element in allProducts.docs) {
+              productController.productList.value
+                  .add(ProductModel.fromMap(element.data()));
+            }
+          } else {
+            var selectedProducts = await firestore
+                .collection('products')
+                .where('categoryId',
+                    isEqualTo: productController.selectedCategory.value.foodId)
+                .get();
+            productController.productList.value = [];
+            for (var element in selectedProducts.docs) {
+              productController.productList.value
+                  .add(ProductModel.fromMap(element.data()));
+            }
           }
         },
         child: Column(
