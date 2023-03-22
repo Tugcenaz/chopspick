@@ -23,8 +23,8 @@ class ProductController extends GetxController {
     productService.saveProduct();
   }
 
-  readProducsts() async {
-    List<ProductModel> allProductList = await productService.readProduct();
+  readProducsts( {int? categoryId}) async {
+    List<ProductModel> allProductList = await productService.readProduct(categoryId: categoryId);
     if (allProductList != null) {
       productList.value = allProductList;
     }

@@ -16,13 +16,26 @@ class ProductService {
     });
   }
 
-  Future<List<ProductModel>> readProduct() async {
+  Future<List<ProductModel>> readProduct({int? categoryId}) async {
     List<ProductModel> productList = [];
-    QuerySnapshot<Map<String, dynamic>> allProduct =
-        await firestore.collection('products').get();
-    for (var element in allProduct.docs) {
-      productList.add(ProductModel.fromMap(element.data()));
+    QuerySnapshot<Map<String, dynamic>> allProduct;
+
+    if (categoryId == 0) {
+      allProduct = await firestore.collection('products').limit(50).get();
+      for (var element in allProduct.docs) {
+        productList.add(ProductModel.fromMap(element.data()));
+      }
+      return productList;
+    } else {
+      var selectedProducts = await firestore
+          .collection('products')
+          .where('categoryId', isEqualTo: categoryId).limit(50)
+          .get();
+      productList = [];
+      for (var element in selectedProducts.docs) {
+        productList.add(ProductModel.fromMap(element.data()));
+      }
+      return productList;
     }
-    return productList;
   }
 }

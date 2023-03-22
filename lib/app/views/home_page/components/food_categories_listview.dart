@@ -1,15 +1,13 @@
 import 'package:chopspick/app/controllers/products_controller.dart';
-import 'package:chopspick/app/models/product_model.dart';
 import 'package:chopspick/core/static_data.dart';
 import 'package:chopspick/core/theme/colors.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class FoodCategoriesListViewPage extends StatefulWidget {
-  FoodCategoriesListViewPage({Key? key}) : super(key: key);
+  const FoodCategoriesListViewPage({Key? key}) : super(key: key);
 
   @override
   State<FoodCategoriesListViewPage> createState() =>
@@ -19,7 +17,6 @@ class FoodCategoriesListViewPage extends StatefulWidget {
 class _FoodCategoriesListViewPageState
     extends State<FoodCategoriesListViewPage> {
   ProductController productController = Get.find();
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   @override
   void initState() {
@@ -29,17 +26,14 @@ class _FoodCategoriesListViewPageState
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding:  EdgeInsets.symmetric(horizontal: 34.0.w),
-      child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: categoryList.length,
-          itemBuilder: (BuildContext context, int index) {
-            return _buildGestureDetector(
-                index: index,
-                child: Image.network(categoryList[index].foodPicture!));
-          }),
-    );
+    return ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: categoryList.length,
+        itemBuilder: (BuildContext context, int index) {
+          return _buildGestureDetector(
+              index: index,
+              child: Image.network(categoryList[index].foodPicture!));
+        });
   }
 
   Widget _buildGestureDetector({required Widget child, required int index}) {
@@ -47,32 +41,21 @@ class _FoodCategoriesListViewPageState
       () => GestureDetector(
         onTap: () async {
           productController.selectCategory(categoryList[index]);
+          productController.readProducsts(
+              categoryId: productController.selectedCategory.value.foodId);
           ////urunleri getir
-          if (productController.selectedCategory.value.foodId == 0) {
-            QuerySnapshot<Map<String, dynamic>> allProducts =
-                await firestore.collection('products').get();
-            productController.productList.value = [];
-            for (var element in allProducts.docs) {
-              productController.productList.value
-                  .add(ProductModel.fromMap(element.data()));
-            }
-          } else {
-            var selectedProducts = await firestore
-                .collection('products')
-                .where('categoryId',
-                    isEqualTo: productController.selectedCategory.value.foodId)
-                .get();
-            productController.productList.value = [];
-            for (var element in selectedProducts.docs) {
-              productController.productList.value
-                  .add(ProductModel.fromMap(element.data()));
-            }
-          }
+          //tıklayınca controllerdeki ürün güncelleme fonksiyonuna istek atacak
         },
-        child: Column(
+        child: Padding(
+          padding: EdgeInsets.only(
+            left: index == 0 ? 34.w : 0,
+            right: index == (categoryList.length - 1) ? 34.w : 0,
+          ),
+          child: Column(
             children: [
               Padding(
-                padding:  EdgeInsets.only(right: 12.0.w),
+                padding: EdgeInsets.only(
+                    right: index == (categoryList.length - 1) ? 0 : 12.0.w),
                 child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.sp),
@@ -88,7 +71,7 @@ class _FoodCategoriesListViewPageState
               Text(categoryList[index].foodName ?? ""),
             ],
           ),
-
+        ),
       ),
     );
   }
