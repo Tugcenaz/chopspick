@@ -26,33 +26,39 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Column _buildColumn() {
+  Widget _buildColumn() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Bugün ne sipariş etmek istiyorsun?',
-          style: TextStyles.titleBlackTextStyle1(
-              fontSize: 15.sp, fontWeight: FontWeight.w300),
-          textAlign: TextAlign.start,
+        Padding(
+          padding:  EdgeInsets.symmetric(horizontal: 34.0.w),
+          child: Text(
+            'Bugün ne sipariş etmek istiyorsun?',
+            style: TextStyles.titleBlackTextStyle1(
+                fontSize: 15.sp, fontWeight: FontWeight.w300),
+            textAlign: TextAlign.start,
+          ),
         ),
         SizedBox(
           height: 17.h,
         ),
-        TextFormField(
-          decoration: InputDecoration(
-              contentPadding: EdgeInsets.all(16),
-              hintText: 'Search',
-              hintStyle: TextStyles.titleGreyTextStyle1(),
-              fillColor: CustomColors.textFormFieldFillColor,
-              filled: true,
-              prefixIcon: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 14.0.w),
-                child: Image.asset(Constants.searchIcon),
-              ),
-              border: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.circular(30.sp))),
+        Padding(
+          padding:  EdgeInsets.symmetric(horizontal: 34.0.w),
+          child: TextFormField(
+            decoration: InputDecoration(
+                contentPadding: EdgeInsets.all(16),
+                hintText: 'Search',
+                hintStyle: TextStyles.titleGreyTextStyle1(),
+                fillColor: CustomColors.textFormFieldFillColor,
+                filled: true,
+                prefixIcon: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 14.0.w),
+                  child: Image.asset(Constants.searchIcon),
+                ),
+                border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(30.sp))),
+          ),
         ),
         SizedBox(
           height: 32.h,
@@ -65,12 +71,20 @@ class HomePage extends StatelessWidget {
         SizedBox(
           height: 30.h,
         ),
-        Container(
-          height: 180.h,
-          width: double.infinity,
-          color: Colors.pink,
-          child: Text("promotion"),
-        ),
+        Padding(
+          padding:  EdgeInsets.symmetric(horizontal: 34.0.w),
+          child: Container(
+            height: 180.h,
+            width: double.infinity,
+            color: Colors.pink,
+            child: Text("promotion"),
+          ),
+        ),SizedBox(height: 10.h,),
+        SizedBox(
+          height: 30.h, child:Obx(() => Padding(
+            padding:  EdgeInsets.symmetric(horizontal: 34.0.w),
+            child: Text(productController.getCategoryNameWithId()),
+          )) ,),
         SizedBox(
             height: 190.h,
             width: double.infinity,

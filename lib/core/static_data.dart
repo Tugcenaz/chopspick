@@ -3,7 +3,7 @@ import 'package:chopspick/core/constants/constants.dart';
 
 List<FoodCategoryModel> categoryList = [
   FoodCategoryModel(
-      foodName: 'Hepsi',
+      foodName: 'All',
       foodId: 0,
       foodPicture: Constants.allFoodFotoUrl,
       status: 1),
@@ -22,6 +22,5 @@ List<FoodCategoryModel> categoryList = [
       foodId: 3,
       foodPicture: Constants.dessertUrl,
       status: 3),
-
-
 ];
+

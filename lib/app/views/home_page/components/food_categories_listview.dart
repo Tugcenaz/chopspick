@@ -29,14 +29,17 @@ class _FoodCategoriesListViewPageState
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: categoryList.length,
-        itemBuilder: (BuildContext context, int index) {
-          return _buildGestureDetector(
-              index: index,
-              child: Image.network(categoryList[index].foodPicture!));
-        });
+    return Padding(
+      padding:  EdgeInsets.symmetric(horizontal: 34.0.w),
+      child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: categoryList.length,
+          itemBuilder: (BuildContext context, int index) {
+            return _buildGestureDetector(
+                index: index,
+                child: Image.network(categoryList[index].foodPicture!));
+          }),
+    );
   }
 
   Widget _buildGestureDetector({required Widget child, required int index}) {
@@ -67,21 +70,25 @@ class _FoodCategoriesListViewPageState
           }
         },
         child: Column(
-          children: [
-            Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.sp),
-                  color: categoryList[index].foodId ==
-                          productController.selectedCategory.value.foodId
-                      ? CustomColors.onTappedContainerColor
-                      : CustomColors.textFormFieldFillColor,
-                ),
-                width: 81.w,
-                height: 80.h,
-                child: child),
-            Text(categoryList[index].foodName ?? ""),
-          ],
-        ),
+            children: [
+              Padding(
+                padding:  EdgeInsets.only(right: 12.0.w),
+                child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.sp),
+                      color: categoryList[index].foodId ==
+                              productController.selectedCategory.value.foodId
+                          ? CustomColors.onTappedContainerColor
+                          : CustomColors.textFormFieldFillColor,
+                    ),
+                    width: 81.w,
+                    height: 80.h,
+                    child: child),
+              ),
+              Text(categoryList[index].foodName ?? ""),
+            ],
+          ),
+
       ),
     );
   }
