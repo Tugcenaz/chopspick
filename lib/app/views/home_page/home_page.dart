@@ -1,7 +1,7 @@
 import 'package:chopspick/app/controllers/products_controller.dart';
 import 'package:chopspick/app/controllers/user_controller.dart';
 import 'package:chopspick/app/services/db_service.dart';
-import 'package:chopspick/app/views/home_page/components/food_categories_listview.dart';
+import 'package:chopspick/app/views/home_page/components/categories_listview.dart';
 import 'package:chopspick/app/views/home_page/components/products_listview.dart';
 import 'package:chopspick/core/theme/colors.dart';
 import 'package:chopspick/core/theme/text_styles.dart';
@@ -31,7 +31,7 @@ class HomePage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 34.0.w),
+          padding: EdgeInsets.symmetric(horizontal: 34.0.w),
           child: Text(
             'Bugün ne sipariş etmek istiyorsun?',
             style: TextStyles.titleBlackTextStyle1(
@@ -43,7 +43,7 @@ class HomePage extends StatelessWidget {
           height: 17.h,
         ),
         Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 34.0.w),
+          padding: EdgeInsets.symmetric(horizontal: 34.0.w),
           child: TextFormField(
             decoration: InputDecoration(
                 contentPadding: EdgeInsets.all(16),
@@ -66,25 +66,39 @@ class HomePage extends StatelessWidget {
         SizedBox(
           width: double.infinity,
           height: 120.h,
-          child: FoodCategoriesListViewPage(),
+          child: CategoriesListViewPage(),
         ),
         SizedBox(
-          height: 30.h,
+          height: 15.h,
         ),
         Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 34.0.w),
+          padding: EdgeInsets.symmetric(horizontal: 34.0.w),
           child: Container(
             height: 180.h,
             width: double.infinity,
             color: Colors.pink,
-            child: Text("promotion"),
+            child: const Text(
+              "promotion",
+            ),
           ),
-        ),SizedBox(height: 10.h,),
+        ),
         SizedBox(
-          height: 30.h, child:Obx(() => Padding(
-            padding:  EdgeInsets.symmetric(horizontal: 34.0.w),
-            child: Text(productController.getCategoryNameWithId()),
-          )) ,),
+          height: 8.h,
+        ),
+        SizedBox(
+          height: 32.h,
+          child: Obx(() => Padding(
+                padding: EdgeInsets.symmetric(horizontal: 34.0.w),
+                child: Text(
+                  productController.getCategoryNameWithId(),
+                  style: TextStyles.titleBlackTextStyle1(
+                      fontSize: 23.sp, fontWeight: FontWeight.w600),
+                ),
+              )),
+        ),
+        SizedBox(
+          height: 15.h,
+        ),
         SizedBox(
             height: 190.h,
             width: double.infinity,
@@ -110,9 +124,7 @@ class HomePage extends StatelessWidget {
       ),
       actions: [
         GestureDetector(
-            onTap: () {
-              productController.saveProduct();
-            },
+            onTap: () {},
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.0.w),
               child: Image.asset(

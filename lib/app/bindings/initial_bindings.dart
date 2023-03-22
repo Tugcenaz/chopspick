@@ -1,3 +1,4 @@
+import 'package:chopspick/app/controllers/basket_controller.dart';
 import 'package:chopspick/app/controllers/products_controller.dart';
 import 'package:chopspick/app/controllers/user_controller.dart';
 import 'package:chopspick/app/services/db_service.dart';
@@ -15,8 +16,8 @@ class InitialBinding implements Bindings {
     Get.lazyPut(() => ProductService(), fenix: true);
 
 
-
     Get.lazyPut(() => UserController(), fenix: true);
     Get.lazyPut(() => ProductController(), fenix: true);
+    Get.lazyPut(() => BasketController(), fenix: true);
   }
 }

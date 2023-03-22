@@ -1,6 +1,6 @@
 
 
-import 'package:chopspick/app/models/food_category_model.dart';
+import 'package:chopspick/app/models/category_model.dart';
 import 'package:chopspick/app/models/product_model.dart';
 import 'package:chopspick/app/services/product_service.dart';
 import 'package:chopspick/core/static_data.dart';
@@ -9,12 +9,12 @@ import 'package:get/get.dart';
 
 class ProductController extends GetxController {
   ProductService productService = Get.find();
-  Rx<FoodCategoryModel> selectedCategory = categoryList.first.obs;
+  Rx<CategoryModel> selectedCategory = categoryList.first.obs;
 
   ///ürünleirn listesi
   RxList<ProductModel> productList = <ProductModel>[].obs;
 
-  selectCategory(FoodCategoryModel category) {
+  selectCategory(CategoryModel category) {
     selectedCategory.value = category;
     debugPrint(selectedCategory.value.toString());
   }
@@ -31,7 +31,7 @@ class ProductController extends GetxController {
   }
 
   String getCategoryNameWithId() {
-    switch (selectedCategory.value.foodId) {
+    switch (selectedCategory.value.categoryId) {
       case 0:
         return 'Tüm Ürünler';
       case 1:

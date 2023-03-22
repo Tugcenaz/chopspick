@@ -1,26 +1,26 @@
-import 'package:chopspick/app/models/food_category_model.dart';
+import 'package:chopspick/app/models/category_model.dart';
 import 'package:chopspick/core/constants/constants.dart';
 
-List<FoodCategoryModel> categoryList = [
-  FoodCategoryModel(
-      foodName: 'All',
-      foodId: 0,
-      foodPicture: Constants.allFoodFotoUrl,
+List<CategoryModel> categoryList = [
+  CategoryModel(
+      categoryName: 'All',
+      categoryId: 0,
+      categoryPicture: Constants.allFoodFotoUrl,
       status: 1),
-  FoodCategoryModel(
-      foodName: 'Burger',
-      foodId: 1,
-      foodPicture: Constants.burgerUrl,
+  CategoryModel(
+      categoryName: 'Burger',
+      categoryId: 1,
+      categoryPicture: Constants.burgerUrl,
       status: 1),
-  FoodCategoryModel(
-      foodName: 'Pizza',
-      foodId: 2,
-      foodPicture: Constants.pizzaUrl,
+  CategoryModel(
+      categoryName: 'Pizza',
+      categoryId: 2,
+      categoryPicture: Constants.pizzaUrl,
       status: 2),
-  FoodCategoryModel(
-      foodName: 'Dessert',
-      foodId: 3,
-      foodPicture: Constants.dessertUrl,
+  CategoryModel(
+      categoryName: 'Dessert',
+      categoryId: 3,
+      categoryPicture: Constants.dessertUrl,
       status: 3),
 ];
 

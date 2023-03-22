@@ -1,4 +1,5 @@
 import 'package:chopspick/app/controllers/user_controller.dart';
+import 'package:chopspick/app/views/bottom_nav_bar.dart';
 import 'package:chopspick/app/views/home_page/home_page.dart';
 import 'package:chopspick/app/views/intro_page.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,7 @@ class LandingPage extends StatelessWidget {
       }else if (userController.user.value.userId == null) {
         return const IntroPage();
       } else {
-        return HomePage();
+        return BottomNavigationPage();
       }
     });
   }

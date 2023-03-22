@@ -1,5 +1,4 @@
 import 'package:chopspick/app/bindings/initial_bindings.dart';
-import 'package:chopspick/app/views/intro_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

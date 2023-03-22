@@ -16,7 +16,8 @@ class _ProductsListViewPageState extends State<ProductsListViewPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => ListView.builder(
+    return Obx(
+      () => ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: productController.productList.length,
         itemBuilder: (BuildContext context, int index) {
@@ -41,7 +42,9 @@ class _ProductsListViewPageState extends State<ProductsListViewPage> {
                     Text(productController.productList.value[index].name!),
                     Row(
                       children: [
-                        Text('\$${productController.productList.value[index].price}'),
+                        Text(
+                            '\$${productController.productList.value[index].price}'),
+
 
                       ],
                     ),
@@ -50,7 +53,8 @@ class _ProductsListViewPageState extends State<ProductsListViewPage> {
               ),
             ),
           );
-        }));
+        },
+      ),
+    );
   }
 }
-/**/

@@ -6,16 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class FoodCategoriesListViewPage extends StatefulWidget {
-  const FoodCategoriesListViewPage({Key? key}) : super(key: key);
+class CategoriesListViewPage extends StatefulWidget {
+  const CategoriesListViewPage({Key? key}) : super(key: key);
 
   @override
-  State<FoodCategoriesListViewPage> createState() =>
-      _FoodCategoriesListViewPageState();
+  State<CategoriesListViewPage> createState() =>
+      _CategoriesListViewPageState();
 }
 
-class _FoodCategoriesListViewPageState
-    extends State<FoodCategoriesListViewPage> {
+class _CategoriesListViewPageState
+    extends State<CategoriesListViewPage> {
   ProductController productController = Get.find();
 
   @override
@@ -32,7 +32,7 @@ class _FoodCategoriesListViewPageState
         itemBuilder: (BuildContext context, int index) {
           return _buildGestureDetector(
               index: index,
-              child: Image.network(categoryList[index].foodPicture!));
+              child: Image.network(categoryList[index].categoryPicture!));
         });
   }
 
@@ -42,7 +42,7 @@ class _FoodCategoriesListViewPageState
         onTap: () async {
           productController.selectCategory(categoryList[index]);
           productController.readProducsts(
-              categoryId: productController.selectedCategory.value.foodId);
+              categoryId: productController.selectedCategory.value.categoryId);
           ////urunleri getir
           //tıklayınca controllerdeki ürün güncelleme fonksiyonuna istek atacak
         },
@@ -59,8 +59,8 @@ class _FoodCategoriesListViewPageState
                 child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.sp),
-                      color: categoryList[index].foodId ==
-                              productController.selectedCategory.value.foodId
+                      color: categoryList[index].categoryId ==
+                              productController.selectedCategory.value.categoryId
                           ? CustomColors.onTappedContainerColor
                           : CustomColors.textFormFieldFillColor,
                     ),
@@ -68,7 +68,7 @@ class _FoodCategoriesListViewPageState
                     height: 80.h,
                     child: child),
               ),
-              Text(categoryList[index].foodName ?? ""),
+              Text(categoryList[index].categoryName ?? ""),
             ],
           ),
         ),
