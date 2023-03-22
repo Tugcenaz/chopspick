@@ -24,4 +24,7 @@ class CustomColors {
   static const containerGradientColorBottom = Color(0xFFD5D3D3);
 
   static const bottomNavBarActiveColor = Color(0xFFCE1973);
+  static const priceYellowColor = Color(0xFFB4AC03);
+
+
 }

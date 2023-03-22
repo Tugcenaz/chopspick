@@ -1,6 +1,9 @@
 import 'package:chopspick/app/controllers/products_controller.dart';
+import 'package:chopspick/core/constants/constants.dart';
 import 'package:chopspick/core/theme/colors.dart';
+import 'package:chopspick/core/theme/text_styles.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -24,7 +27,6 @@ class _ProductsListViewPageState extends State<ProductsListViewPage> {
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: 34.w),
             child: Container(
-              padding: EdgeInsets.all(10.sp),
               height: 190.h,
               width: 140.w,
               decoration: BoxDecoration(
@@ -34,21 +36,44 @@ class _ProductsListViewPageState extends State<ProductsListViewPage> {
                     CustomColors.containerGradientColorBottom
                   ])),
               child: Obx(
-                () => Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.network(
-                        productController.productList.value[index].picture!),
-                    Text(productController.productList.value[index].name!),
-                    Row(
-                      children: [
-                        Text(
-                            '\$${productController.productList.value[index].price}'),
+                () => Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Image.network(
+                          productController.productList.value[index].picture!),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      Text(
+                        productController.productList.value[index].name!,
+                        style: TextStyles.titleBlackTextStyle1(
+                            fontWeight: FontWeight.w400, fontSize: 12.sp),
+                      ),
 
-
-                      ],
-                    ),
-                  ],
+                      Row(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(left: 8.0.w),
+                            child: Text(
+                              '\$${productController.productList.value[index].price}',
+                              style: TextStyles.titleBlackTextStyle1(
+                                  color: CustomColors.priceYellowColor,
+                                  fontSize: 18.sp,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 36.w),
+                            child: IconButton(
+                                onPressed: () {},
+                                icon: Image.asset(Constants.addButtonIcon)),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
