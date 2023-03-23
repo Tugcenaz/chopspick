@@ -8,7 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
-import 'basket_page.dart';
+import 'basket_page/basket_page.dart';
 
 PersistentTabController _controller = PersistentTabController(initialIndex: 0);
 

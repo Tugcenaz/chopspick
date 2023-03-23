@@ -124,7 +124,9 @@ class HomePage extends StatelessWidget {
       ),
       actions: [
         GestureDetector(
-            onTap: () {},
+            onTap: () {
+              userController.signOut();
+            },
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.0.w),
               child: Image.asset(

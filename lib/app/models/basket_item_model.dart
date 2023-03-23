@@ -1,4 +1,5 @@
 import 'package:chopspick/app/models/product_model.dart';
+import 'package:get/get.dart';
 
 class BasketItemModel {
   int count;

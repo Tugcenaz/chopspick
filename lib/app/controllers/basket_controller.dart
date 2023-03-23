@@ -1,19 +1,15 @@
 import 'package:chopspick/app/models/basket_item_model.dart';
 import 'package:chopspick/app/models/product_model.dart';
+import 'package:chopspick/app/services/basket_service.dart';
 import 'package:get/get.dart';
 
 class BasketController extends GetxController {
   RxList<BasketItemModel> basketItemList = <BasketItemModel>[].obs;
+  BasketService basketService = Get.find();
 
-  addProduct(ProductModel product) {
+  addProduct(ProductModel product) async{
     //ekle butonuna basınca product buraya gelecek
-    for (var element in basketItemList) {
-      if (element.productModel == product) {
-        element.count++;
-      } else {
-        basketItemList.add(BasketItemModel(productModel: product, count: 1));
-      }
-    }
+
   }
 }
 

@@ -16,6 +16,7 @@ class CustomColors {
   static const Color primaryColor = Color(0xFF6e5963);
 
   static const greyTitleColor = Color(0xFF969696);
+  static const greyTitleColor2 = Color(0xFF787878);
   static const textFormFieldFillColor = Color(0xFFD9C9C9);
 
   static const onTappedContainerColor = Color(0xFFD21670);
@@ -25,6 +26,16 @@ class CustomColors {
 
   static const bottomNavBarActiveColor = Color(0xFFCE1973);
   static const priceYellowColor = Color(0xFFB4AC03);
+
+
+
+  static const detailPageLinearGradientPink = Color(0xFFD11770);
+  static const detailPageLinearGradientPurple = Color(0xFF644AB5);
+
+  static const pinkButtomColor = Color(0xFFCC1A74);
+
+
+
 
 
 }
