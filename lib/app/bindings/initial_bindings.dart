@@ -20,6 +20,6 @@ class InitialBinding implements Bindings {
 
     Get.lazyPut(() => UserController(), fenix: true);
     Get.lazyPut(() => ProductController(), fenix: true);
-    Get.lazyPut(() => BasketController(), fenix: true);
+    Get.put( BasketController(), permanent: true);
   }
 }

@@ -5,7 +5,7 @@ class BasketItemModel {
   int count;
   ProductModel productModel;
 
-  BasketItemModel({required this.productModel, required this.count});
+  BasketItemModel({required this.productModel,required this.count});
 
 
   Map<String, dynamic> toMap() {

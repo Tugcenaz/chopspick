@@ -38,7 +38,7 @@ List<Widget> _buildScreens() {
   return [
     HomePage(),
     const SearchPage(),
-    const BasketPage(),
+   BasketPage(),
     const ProfilePage(),
   ];
 }

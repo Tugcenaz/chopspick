@@ -16,6 +16,7 @@ class ProductDetailsPage extends StatelessWidget {
   ProductDetailsPage({Key? key, required this.productModel}) : super(key: key);
   final ProductController productController = Get.find();
   final BasketController basketController = Get.find();
+  RxInt addCount = 1.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +86,17 @@ class ProductDetailsPage extends StatelessWidget {
                 ),
                 Center(
                   child: CustomButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      basketController.addProduct(productModel, addCount.value);
+
+                      for (int i = 0;
+                          i < basketController.basketItemList.length;
+                          i++) {
+                        debugPrint(
+                            "item = ${basketController.basketItemList[i].productModel.name} count = ${basketController.basketItemList[i].count}");
+                      }
+                      Get.back();
+                    },
                     width: 329.w,
                     height: 60.h,
                     title: 'Add to Cart',
@@ -134,13 +145,20 @@ class ProductDetailsPage extends StatelessWidget {
         Row(
           children: [
             IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (addCount.value > 1) {
+                    addCount.value = addCount.value - 1;
+                  }
+                },
                 icon: Image.asset(Constants.pinkDecreaseIcon)),
             Obx(
-              () => Text(basketController.basketItemList.length.toString()),
+              () => Text(addCount.value.toString()),
             ),
             IconButton(
-                onPressed: () {}, icon: Image.asset(Constants.pinkAddIcon)),
+                onPressed: () {
+                  addCount.value = addCount.value + 1;
+                },
+                icon: Image.asset(Constants.pinkAddIcon)),
           ],
         ),
       ],

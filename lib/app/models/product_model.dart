@@ -1,6 +1,7 @@
 class ProductModel {
   String? name;
   int? categoryId;
+  String? productId;
   String? picture;
   String? star;
   int? price;
@@ -9,6 +10,7 @@ class ProductModel {
   ProductModel(
       {this.name,
       this.categoryId,
+      this.productId,
       this.picture,
       this.star,
       this.price,
@@ -18,6 +20,7 @@ class ProductModel {
     return {
       'name': name,
       'categoryId': categoryId,
+      'productId': productId,
       'picture': picture,
       'star': star,
       'price': price,
@@ -28,6 +31,7 @@ class ProductModel {
   ProductModel.fromMap(Map<String, dynamic> map)
       : name = map['name'],
         categoryId = map['categoryId'],
+        productId = map['productId'],
         picture = map['picture'],
         star = map['star'],
         price = map['price'],
