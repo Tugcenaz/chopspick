@@ -14,10 +14,10 @@ class BasketController extends GetxController {
     _basketItemList.value = value;
   }
 
-  basketItemListRefresh(){
+  basketItemListRefresh() {
     List<BasketItemModel> itemList = basketItemList;
-    basketItemList=[];
-    basketItemList=itemList;
+    basketItemList = [];
+    basketItemList = itemList;
   }
 
   addProduct(ProductModel product, int addCount) async {
@@ -28,7 +28,9 @@ class BasketController extends GetxController {
     ///3. durum listede benim ürünüm zaten var (ürünü güncelle)
     if (basketItemList.isEmpty) {
       debugPrint("1. durum");
-      basketItemList=[...[BasketItemModel(productModel: product, count: addCount)]];
+      basketItemList = [
+        ...[BasketItemModel(productModel: product, count: addCount)]
+      ];
       debugPrint('item length:${basketItemList.length}');
 
       return true;
@@ -36,7 +38,7 @@ class BasketController extends GetxController {
       for (int i = 0; i < basketItemList.length; i++) {
         if (basketItemList[i].productModel.productId == product.productId) {
           debugPrint("3. durum");
-          basketItemList[i].count=basketItemList[i].count+addCount;
+          basketItemList[i].count = basketItemList[i].count + addCount;
           basketItemListRefresh();
           return true;
         }
@@ -45,6 +47,22 @@ class BasketController extends GetxController {
           .add(BasketItemModel(productModel: product, count: addCount));
       basketItemListRefresh();
       return true;
+    }
+  }
+
+  decreaseItem(ProductModel product) {
+    for (int i = 0; i < basketItemList.length; i++) {
+      if (basketItemList[i].productModel.productId == product.productId) {
+        if (basketItemList[i].count == 1) {
+          basketItemList.remove(basketItemList[i]);
+          basketItemListRefresh();
+          return true;
+        } else {
+          basketItemList[i].count = basketItemList[i].count - 1;
+          basketItemListRefresh();
+          return true;
+        }
+      }
     }
   }
 }

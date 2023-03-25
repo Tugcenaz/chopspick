@@ -33,7 +33,8 @@ class _BasketPageState extends State<BasketPage> {
     int cost = 0;
     for (int i = 0; i < basketController.basketItemList.length; i++) {
       var count = basketController.basketItemList[i].count;
-      for (int j = 0; j < count; count++) {
+      for (int j = 0; j < count; j++) {
+        debugPrint("tuğçenin döngüsü");
         cost = basketController.basketItemList[i].productModel.price! + cost;
       }
     }
@@ -95,12 +96,14 @@ class _BasketPageState extends State<BasketPage> {
                   'Total:',
                   style: TextStyles.titleBlackTextStyle1(fontSize: 23.sp),
                 ),
-                Text(
-                  '\$fiyat yazacak',
-                  style: TextStyles.titleWhiteTextStyle1(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 26.sp,
-                      color: CustomColors.priceYellowColor),
+                Obx(
+                  () => Text(
+                    '\$ ${getCost()}',
+                    style: TextStyles.titleWhiteTextStyle1(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 26.sp,
+                        color: CustomColors.priceYellowColor),
+                  ),
                 ),
               ],
             ),
@@ -178,12 +181,19 @@ class _BasketPageState extends State<BasketPage> {
                 child: Row(
                   children: [
                     IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          basketController.decreaseItem(basketController.basketItemList[index].productModel);
+                        },
                         icon: Image.asset(Constants.pinkDecreaseIcon)),
                     Text(basketController.basketItemList[index].count
                         .toString()),
                     IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          basketController.addProduct(
+                              basketController
+                                  .basketItemList[index].productModel,
+                              1);
+                        },
                         icon: Image.asset(Constants.pinkAddIcon)),
                   ],
                 ),
