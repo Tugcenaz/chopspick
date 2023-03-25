@@ -14,18 +14,21 @@ class BasketController extends GetxController {
     _basketItemList.value = value;
   }
 
+  basketItemListRefresh(){
+    List<BasketItemModel> itemList = basketItemList;
+    basketItemList=[];
+    basketItemList=itemList;
+  }
+
   addProduct(ProductModel product, int addCount) async {
     //ekle butonuna basınca product buraya gelecek
 
     ///1. durum listede hiç ürün yok (ürünü ekle)
     ///2. durum listede ürün var ama benimki yok(ürünü ekle)
     ///3. durum listede benim ürünüm zaten var (ürünü güncelle)
-    ///
-    ///
     if (basketItemList.isEmpty) {
       debugPrint("1. durum");
-      basketItemList
-          .add(BasketItemModel(productModel: product, count: addCount));
+      basketItemList=[...[BasketItemModel(productModel: product, count: addCount)]];
       debugPrint('item length:${basketItemList.length}');
 
       return true;
@@ -33,21 +36,14 @@ class BasketController extends GetxController {
       for (int i = 0; i < basketItemList.length; i++) {
         if (basketItemList[i].productModel.productId == product.productId) {
           debugPrint("3. durum");
-          debugPrint("#2");
-          List<BasketItemModel> basketItems = basketItemList;
-          debugPrint("#3");
-          basketItems[i].count = basketItems[i].count + addCount;
-          debugPrint("#4");
-          basketItemList = basketItems;
-          debugPrint('item length:${basketItemList.length}');
-
+          basketItemList[i].count=basketItemList[i].count+addCount;
+          basketItemListRefresh();
           return true;
         }
       }
-      debugPrint("2. durum");
       basketItemList
           .add(BasketItemModel(productModel: product, count: addCount));
-      debugPrint('item length:${basketItemList.length}');
+      basketItemListRefresh();
       return true;
     }
   }

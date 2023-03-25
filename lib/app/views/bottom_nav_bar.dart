@@ -13,7 +13,7 @@ import 'basket_page/basket_page.dart';
 PersistentTabController _controller = PersistentTabController(initialIndex: 0);
 
 class BottomNavigationPage extends StatelessWidget {
-   BottomNavigationPage({Key? key}) : super(key: key);
+  BottomNavigationPage({Key? key}) : super(key: key);
   RxInt currentIndex = _controller.index.obs;
 
   @override
@@ -25,8 +25,8 @@ class BottomNavigationPage extends StatelessWidget {
       items: _navBarsItems(),
       navBarHeight: 50.h,
       confineInSafeArea: true,
-      onItemSelected: (int index){
-        currentIndex.value=index;
+      onItemSelected: (int index) {
+        currentIndex.value = index;
       },
       backgroundColor: Colors.white,
       navBarStyle: NavBarStyle.style12,
@@ -38,7 +38,7 @@ List<Widget> _buildScreens() {
   return [
     HomePage(),
     const SearchPage(),
-   BasketPage(),
+    BasketPage(),
     const ProfilePage(),
   ];
 }
@@ -65,7 +65,5 @@ List<PersistentBottomNavBarItem> _navBarsItems() {
       activeColorPrimary: CustomColors.bottomNavBarActiveColor,
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
-
   ];
 }
-
