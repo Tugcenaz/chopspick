@@ -1,6 +1,7 @@
 import 'package:chopspick/app/controllers/basket_controller.dart';
+import 'package:chopspick/app/controllers/user_controller.dart';
+import 'package:chopspick/app/models/order_model.dart';
 import 'package:chopspick/app/views/bottom_nav_bar.dart';
-import 'package:chopspick/app/views/home_page/home_page.dart';
 import 'package:chopspick/core/constants/constants.dart';
 import 'package:chopspick/core/theme/colors.dart';
 import 'package:chopspick/core/theme/text_styles.dart';
@@ -20,29 +21,23 @@ class BasketPage extends StatefulWidget {
 
 class _BasketPageState extends State<BasketPage> {
   BasketController basketController = Get.find();
+  UserController userController = Get.find();
   final TextEditingController _textEditingController = TextEditingController();
   String? orderNote;
 
   RxInt count = 1.obs;
 
-  RxInt getItemsCount() {
-    RxInt items = 0.obs;
-    for (int i = 0; i < basketController.basketItemList.length; i++) {
-      items.value = basketController.basketItemList[i].count + items.value;
-    }
-    return items;
-  }
+  RxBool busy = false.obs;
 
   int getCost() {
     int cost = 0;
     for (int i = 0; i < basketController.basketItemList.length; i++) {
       var count = basketController.basketItemList[i].count;
       for (int j = 0; j < count; j++) {
-        debugPrint("tuğçenin döngüsü");
+        // debugPrint("tuğçenin döngüsü");
         cost = basketController.basketItemList[i].productModel.price! + cost;
       }
     }
-
     return cost;
   }
 
@@ -51,91 +46,127 @@ class _BasketPageState extends State<BasketPage> {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 51.0.h, horizontal: 31.w),
       child: Scaffold(
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.start,
+        body: Stack(
+          alignment: Alignment.center,
           children: [
-            Obx(
-              () => Text(
-                '${getItemsCount().toString()} items in Cart',
-                style: TextStyles.titleBlackTextStyle1(
-                    fontSize: 26.sp, fontWeight: FontWeight.w600),
-                textAlign: TextAlign.start,
-              ),
-            ),
-            Obx(
-              () => Expanded(
-                child: basketController.basketItemList.isEmpty
-                    ? Text(
-                        'Sepetnize henüz ürün eklemediniz',
-                        style: TextStyles.titleBlackTextStyle1(
-                            fontSize: 20.sp, fontWeight: FontWeight.w300),
-                        textAlign: TextAlign.center,
-                      )
-                    : Obx(
-                        () => ListView.builder(
-                            itemCount: basketController.basketItemList.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              debugPrint(
-                                  "itemlist length = ${basketController.basketItemList.length}");
-                              return _buildBasketItemsContainer(index);
-                            }),
-                      ),
-              ),
-            ),
-            const Text('Order Instructions'),
-            TextFormField(
-              controller: _textEditingController,
-              maxLines: 2,textInputAction: TextInputAction.done,
-              onFieldSubmitted: (String? note) {
-                orderNote = note;
-                debugPrint(orderNote);
-
-              },
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.sp)),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Total:',
-                  style: TextStyles.titleBlackTextStyle1(fontSize: 23.sp),
-                ),
                 Obx(
                   () => Text(
-                    '\$ ${getCost()}',
-                    style: TextStyles.titleWhiteTextStyle1(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 26.sp,
-                        color: CustomColors.priceYellowColor),
+                    '${basketController.getItemsCount().toString()} items in Cart',
+                    style: TextStyles.titleBlackTextStyle1(
+                        fontSize: 26.sp, fontWeight: FontWeight.w600),
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                Obx(
+                  () => Expanded(
+                    child: basketController.basketItemList.isEmpty
+                        ? Text(
+                            'Sepetnize henüz ürün eklemediniz',
+                            style: TextStyles.titleBlackTextStyle1(
+                                fontSize: 20.sp, fontWeight: FontWeight.w300),
+                            textAlign: TextAlign.center,
+                          )
+                        : Obx(
+                            () => ListView.builder(
+                                itemCount:
+                                    basketController.basketItemList.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  debugPrint(
+                                      "itemlist length = ${basketController.basketItemList.length}");
+                                  return _buildBasketItemsContainer(index);
+                                }),
+                          ),
+                  ),
+                ),
+                const Text('Order Instructions'),
+                TextFormField(
+                  controller: _textEditingController,
+                  maxLines: 2,
+                  textInputAction: TextInputAction.done,
+                  onChanged: (String? note) {
+                    orderNote = note;
+                    debugPrint(orderNote);
+                  },
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.sp)),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Total:',
+                      style: TextStyles.titleBlackTextStyle1(fontSize: 23.sp),
+                    ),
+                    Obx(
+                      () => Text(
+                        '\$ ${getCost()}',
+                        style: TextStyles.titleWhiteTextStyle1(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 26.sp,
+                            color: CustomColors.priceYellowColor),
+                      ),
+                    ),
+                  ],
+                ),
+                Center(
+                  child: CustomButton(
+                    onPressed: () async {
+                      if (basketController.basketItemList.isNotEmpty) {
+                        if (busy.value == false) {
+                          try {
+                            busy.value = true;
+                            bool? result = await basketController.saveOrder(
+                                OrderModel(
+                                    userId:
+                                        userController.user.value.userId ?? "",
+                                    totalPrice: getCost(),
+                                    orderNote: orderNote),
+                                basketController.basketItemList);
+                            if (result == true) {
+                              await Future.delayed(Duration(seconds: 3));
+                              basketController.clearBasket();
+                              _textEditingController.text='';
+                            }
+                          } finally {
+                            busy.value = false;
+                          }
+                        }
+                      }
+                      else{
+                        Get.snackbar('Hata', 'Sepetin boş');
+                      }
+                    },
+                    width: 349.w,
+                    height: 60.h,
+                    title: 'Checkout',
+                    color: CustomColors.pinkButtomColor,
+                  ),
+                ),
+                Center(
+                  child: Bounceable(
+                    child: Text(
+                      'Back to Menu',
+                      style: TextStyles.titleBlackTextStyle1(
+                          fontWeight: FontWeight.w600, fontSize: 20.sp),
+                      textAlign: TextAlign.center,
+                    ),
+                    onTap: () {
+                      goToPage(0);
+                    },
                   ),
                 ),
               ],
             ),
-            Center(
-              child: CustomButton(
-                onPressed: () {},
-                width: 349.w,
-                height: 60.h,
-                title: 'Checkout',
-                color: CustomColors.pinkButtomColor,
-              ),
-            ),
-            Center(
-              child: Bounceable(
-                child: Text(
-                  'Back to Menu',
-                  style: TextStyles.titleBlackTextStyle1(
-                      fontWeight: FontWeight.w600, fontSize: 20.sp),
-                  textAlign: TextAlign.center,
-                ),
-                onTap: () {
-                  goToPage(0);
-                },
-              ),
+            Obx(
+              () => busy.value == true
+                  ? const CircularProgressIndicator()
+                  : SizedBox(),
             ),
           ],
         ),

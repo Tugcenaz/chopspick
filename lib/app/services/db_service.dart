@@ -1,3 +1,5 @@
+import 'package:chopspick/app/models/basket_item_model.dart';
+import 'package:chopspick/app/models/order_model.dart';
 import 'package:chopspick/app/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -44,5 +46,21 @@ class DBService {
     }
   }
 
-
+  Future<bool?> saveOrder(
+      OrderModel orderModel, List<BasketItemModel> products) async {
+    try {
+      var user = await firestore.collection("orders").add(orderModel.toMap());
+      for (var item in products) {
+        await firestore
+            .collection('orders')
+            .doc(user.id)
+            .collection('items')
+            .add(item.toMap());
+      }
+      return true;
+    } catch (e) {
+      debugPrint("db getUSer error = $e");
+      return false;
+    }
+  }
 }

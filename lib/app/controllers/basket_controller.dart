@@ -1,12 +1,15 @@
 import 'package:chopspick/app/models/basket_item_model.dart';
+import 'package:chopspick/app/models/order_model.dart';
 import 'package:chopspick/app/models/product_model.dart';
 import 'package:chopspick/app/services/basket_service.dart';
+import 'package:chopspick/app/services/db_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class BasketController extends GetxController {
   final RxList<BasketItemModel> _basketItemList = <BasketItemModel>[].obs;
   BasketService basketService = Get.find();
+  DBService dbService=Get.find();
 
   List<BasketItemModel> get basketItemList => _basketItemList.value;
 
@@ -64,6 +67,22 @@ class BasketController extends GetxController {
         }
       }
     }
+  }
+
+  Future<bool?> saveOrder(OrderModel orderModel,List<BasketItemModel> products)async{
+    return await dbService.saveOrder(orderModel, products);
+  }
+
+  clearBasket(){
+    basketItemList=[];
+  }
+
+  RxInt getItemsCount() {
+    RxInt items = 0.obs;
+    for (int i = 0; i < basketItemList.length; i++) {
+      items.value =basketItemList[i].count + items.value;
+    }
+    return items;
   }
 }
 

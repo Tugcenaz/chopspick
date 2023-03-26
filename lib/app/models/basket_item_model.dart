@@ -1,5 +1,4 @@
 import 'package:chopspick/app/models/product_model.dart';
-import 'package:get/get.dart';
 
 class BasketItemModel {
   int count;
@@ -11,7 +10,7 @@ class BasketItemModel {
   Map<String, dynamic> toMap() {
     return {
       'count': count,
-      'productModel': productModel,
+      'productModel': productModel.toMap(),
     };
   }
 
