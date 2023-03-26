@@ -1,3 +1,4 @@
+import 'package:chopspick/app/components/cached_image_widget.dart';
 import 'package:chopspick/app/controllers/basket_controller.dart';
 import 'package:chopspick/app/controllers/products_controller.dart';
 import 'package:chopspick/app/views/home_page/components/product_details_page.dart';
@@ -53,8 +54,9 @@ class _ProductsListViewPageState extends State<ProductsListViewPage> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Image.network(productController
-                              .productList.value[index].picture!),
+                          child: CachedImageWidget(
+                              imageUrl: productController
+                                  .productList.value[index].picture),
                         ),
                         SizedBox(
                           height: 5.h,

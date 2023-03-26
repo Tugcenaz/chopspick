@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:chopspick/app/components/cached_image_widget.dart';
 import 'package:chopspick/app/components/custom_button.dart';
 import 'package:chopspick/app/controllers/basket_controller.dart';
 import 'package:chopspick/app/controllers/products_controller.dart';
@@ -200,6 +202,7 @@ class ProductDetailsPage extends StatelessWidget {
   }
 
   Container _buildTopContainer() {
+    String? imageUrl = productModel.picture;
     return Container(
       height: double.infinity,
       width: double.infinity,
@@ -220,7 +223,7 @@ class ProductDetailsPage extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: 120.0.h, horizontal: 60.w),
-            child: Image.network(productModel.picture!),
+            child: CachedImageWidget(imageUrl: productModel.picture,),
           ),
           Positioned(
             left: 2.w,

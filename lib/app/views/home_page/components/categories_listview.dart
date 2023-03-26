@@ -1,3 +1,4 @@
+import 'package:chopspick/app/components/cached_image_widget.dart';
 import 'package:chopspick/app/controllers/products_controller.dart';
 import 'package:chopspick/core/static_data.dart';
 import 'package:chopspick/core/theme/colors.dart';
@@ -10,12 +11,10 @@ class CategoriesListViewPage extends StatefulWidget {
   const CategoriesListViewPage({Key? key}) : super(key: key);
 
   @override
-  State<CategoriesListViewPage> createState() =>
-      _CategoriesListViewPageState();
+  State<CategoriesListViewPage> createState() => _CategoriesListViewPageState();
 }
 
-class _CategoriesListViewPageState
-    extends State<CategoriesListViewPage> {
+class _CategoriesListViewPageState extends State<CategoriesListViewPage> {
   ProductController productController = Get.find();
 
   @override
@@ -32,7 +31,9 @@ class _CategoriesListViewPageState
         itemBuilder: (BuildContext context, int index) {
           return _buildGestureDetector(
               index: index,
-              child: Image.network(categoryList[index].categoryPicture!));
+              child: CachedImageWidget(
+                imageUrl: categoryList[index].categoryPicture,
+              ));
         });
   }
 
@@ -60,7 +61,8 @@ class _CategoriesListViewPageState
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.sp),
                       color: categoryList[index].categoryId ==
-                              productController.selectedCategory.value.categoryId
+                              productController
+                                  .selectedCategory.value.categoryId
                           ? CustomColors.onTappedContainerColor
                           : CustomColors.textFormFieldFillColor,
                     ),

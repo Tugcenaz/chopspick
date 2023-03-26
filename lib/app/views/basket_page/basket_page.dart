@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:chopspick/app/components/cached_image_widget.dart';
 import 'package:chopspick/app/controllers/basket_controller.dart';
 import 'package:chopspick/app/controllers/user_controller.dart';
 import 'package:chopspick/app/models/order_model.dart';
@@ -129,16 +131,15 @@ class _BasketPageState extends State<BasketPage> {
                                     orderNote: orderNote),
                                 basketController.basketItemList);
                             if (result == true) {
-                              await Future.delayed(Duration(seconds: 3));
+                              await Future.delayed(const Duration(seconds: 3));
                               basketController.clearBasket();
-                              _textEditingController.text='';
+                              _textEditingController.text = '';
                             }
                           } finally {
                             busy.value = false;
                           }
                         }
-                      }
-                      else{
+                      } else {
                         Get.snackbar('Hata', 'Sepetin boş');
                       }
                     },
@@ -166,7 +167,7 @@ class _BasketPageState extends State<BasketPage> {
             Obx(
               () => busy.value == true
                   ? const CircularProgressIndicator()
-                  : SizedBox(),
+                  : const SizedBox(),
             ),
           ],
         ),
@@ -175,6 +176,8 @@ class _BasketPageState extends State<BasketPage> {
   }
 
   Widget _buildBasketItemsContainer(int index) {
+    String? imageUrl =
+        basketController.basketItemList[index].productModel.picture;
     return Obx(
       () => Padding(
         padding: EdgeInsets.symmetric(vertical: 8.0.h),
@@ -186,10 +189,7 @@ class _BasketPageState extends State<BasketPage> {
               decoration: BoxDecoration(
                   color: CustomColors.containerGradientColorTop,
                   borderRadius: BorderRadius.circular(20.sp)),
-              child: Image.network(
-                basketController.basketItemList[index].productModel.picture!,
-                alignment: Alignment.center,
-              ),
+              child: CachedImageWidget(imageUrl: imageUrl,),
             ),
             SizedBox(
               width: 10.w,
