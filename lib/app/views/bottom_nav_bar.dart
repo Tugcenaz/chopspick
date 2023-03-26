@@ -11,7 +11,9 @@ import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 import 'basket_page/basket_page.dart';
 
 PersistentTabController _controller = PersistentTabController(initialIndex: 0);
-
+goToPage(int index){
+  _controller.jumpToTab(index);
+}
 class BottomNavigationPage extends StatelessWidget {
   BottomNavigationPage({Key? key}) : super(key: key);
   RxInt currentIndex = _controller.index.obs;
@@ -38,7 +40,7 @@ List<Widget> _buildScreens() {
   return [
     HomePage(),
     const SearchPage(),
-    BasketPage(),
+    const BasketPage(),
     const ProfilePage(),
   ];
 }

@@ -1,4 +1,6 @@
 import 'package:chopspick/app/controllers/basket_controller.dart';
+import 'package:chopspick/app/views/bottom_nav_bar.dart';
+import 'package:chopspick/app/views/home_page/home_page.dart';
 import 'package:chopspick/core/constants/constants.dart';
 import 'package:chopspick/core/theme/colors.dart';
 import 'package:chopspick/core/theme/text_styles.dart';
@@ -18,6 +20,8 @@ class BasketPage extends StatefulWidget {
 
 class _BasketPageState extends State<BasketPage> {
   BasketController basketController = Get.find();
+  final TextEditingController _textEditingController = TextEditingController();
+  String? orderNote;
 
   RxInt count = 1.obs;
 
@@ -44,11 +48,11 @@ class _BasketPageState extends State<BasketPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.symmetric(vertical: 63.0.h),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 51.0.h, horizontal: 31.w),
+      child: Scaffold(
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Obx(
@@ -56,6 +60,7 @@ class _BasketPageState extends State<BasketPage> {
                 '${getItemsCount().toString()} items in Cart',
                 style: TextStyles.titleBlackTextStyle1(
                     fontSize: 26.sp, fontWeight: FontWeight.w600),
+                textAlign: TextAlign.start,
               ),
             ),
             Obx(
@@ -78,12 +83,15 @@ class _BasketPageState extends State<BasketPage> {
                       ),
               ),
             ),
-            SizedBox(
-              height: 40.h,
-            ),
             const Text('Order Instructions'),
             TextFormField(
-              maxLines: 2,
+              controller: _textEditingController,
+              maxLines: 2,textInputAction: TextInputAction.done,
+              onFieldSubmitted: (String? note) {
+                orderNote = note;
+                debugPrint(orderNote);
+
+              },
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20.sp)),
@@ -124,7 +132,9 @@ class _BasketPageState extends State<BasketPage> {
                       fontWeight: FontWeight.w600, fontSize: 20.sp),
                   textAlign: TextAlign.center,
                 ),
-                onTap: () {},
+                onTap: () {
+                  goToPage(0);
+                },
               ),
             ),
           ],
@@ -135,72 +145,76 @@ class _BasketPageState extends State<BasketPage> {
 
   Widget _buildBasketItemsContainer(int index) {
     return Obx(
-      () => Row(
-        children: [
-          Container(
-            width: 121.w,
-            height: 129.h,
-            decoration: BoxDecoration(
-                color: CustomColors.containerGradientColorTop,
-                borderRadius: BorderRadius.circular(20.sp)),
-            child: Image.network(
-              basketController.basketItemList[index].productModel.picture!,
-              alignment: Alignment.center,
+      () => Padding(
+        padding: EdgeInsets.symmetric(vertical: 8.0.h),
+        child: Row(
+          children: [
+            Container(
+              width: 121.w,
+              height: 129.h,
+              decoration: BoxDecoration(
+                  color: CustomColors.containerGradientColorTop,
+                  borderRadius: BorderRadius.circular(20.sp)),
+              child: Image.network(
+                basketController.basketItemList[index].productModel.picture!,
+                alignment: Alignment.center,
+              ),
             ),
-          ),
-          SizedBox(
-            width: 10.w,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(left: 10.0.w),
-                child: Text(
-                  basketController.basketItemList[index].productModel.name!,
-                  style: TextStyles.titleBlackTextStyle1(
-                    fontSize: 20.sp,
+            SizedBox(
+              width: 10.w,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 10.0.w),
+                  child: Text(
+                    basketController.basketItemList[index].productModel.name!,
+                    style: TextStyles.titleBlackTextStyle1(
+                      fontSize: 20.sp,
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 10.h,
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 10.0.w),
-                child: Text(
-                  '\$${basketController.basketItemList[index].productModel.price}',
-                  style: TextStyles.titleWhiteTextStyle1(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 26.sp,
-                      color: CustomColors.priceYellowColor),
+                SizedBox(
+                  height: 10.h,
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 0.0),
-                child: Row(
-                  children: [
-                    IconButton(
-                        onPressed: () {
-                          basketController.decreaseItem(basketController.basketItemList[index].productModel);
-                        },
-                        icon: Image.asset(Constants.pinkDecreaseIcon)),
-                    Text(basketController.basketItemList[index].count
-                        .toString()),
-                    IconButton(
-                        onPressed: () {
-                          basketController.addProduct(
-                              basketController
-                                  .basketItemList[index].productModel,
-                              1);
-                        },
-                        icon: Image.asset(Constants.pinkAddIcon)),
-                  ],
+                Padding(
+                  padding: EdgeInsets.only(left: 10.0.w),
+                  child: Text(
+                    '\$${basketController.basketItemList[index].productModel.price}',
+                    style: TextStyles.titleWhiteTextStyle1(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 26.sp,
+                        color: CustomColors.priceYellowColor),
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ],
+                Padding(
+                  padding: const EdgeInsets.only(left: 0.0),
+                  child: Row(
+                    children: [
+                      IconButton(
+                          onPressed: () {
+                            basketController.decreaseItem(basketController
+                                .basketItemList[index].productModel);
+                          },
+                          icon: Image.asset(Constants.pinkDecreaseIcon)),
+                      Text(basketController.basketItemList[index].count
+                          .toString()),
+                      IconButton(
+                          onPressed: () {
+                            basketController.addProduct(
+                                basketController
+                                    .basketItemList[index].productModel,
+                                1);
+                          },
+                          icon: Image.asset(Constants.pinkAddIcon)),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

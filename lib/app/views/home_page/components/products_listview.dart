@@ -1,3 +1,4 @@
+import 'package:chopspick/app/controllers/basket_controller.dart';
 import 'package:chopspick/app/controllers/products_controller.dart';
 import 'package:chopspick/app/views/home_page/components/product_details_page.dart';
 import 'package:chopspick/core/constants/constants.dart';
@@ -18,6 +19,7 @@ class ProductsListViewPage extends StatefulWidget {
 
 class _ProductsListViewPageState extends State<ProductsListViewPage> {
   ProductController productController = Get.find();
+  BasketController basketController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -75,10 +77,14 @@ class _ProductsListViewPageState extends State<ProductsListViewPage> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.only(left: 36.w),
-                              child: IconButton(
-                                  onPressed: () {},
-                                  icon: Image.asset(Constants.addButtonIcon)),
+                              padding: EdgeInsets.only(left: 60.w),
+                              child: Bounceable(
+                                  onTap: () {
+                                    basketController.addProduct(
+                                        productController.productList[index],
+                                        1);
+                                  },
+                                  child: Image.asset(Constants.addButtonIcon)),
                             ),
                           ],
                         ),
