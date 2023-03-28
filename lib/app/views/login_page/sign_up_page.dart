@@ -9,9 +9,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class SignUpPage extends StatelessWidget {
-   SignUpPage({Key? key}) : super(key: key);
-   String? email;
+  SignUpPage({Key? key}) : super(key: key);
+  String? email;
   String? password;
+  String userName = '';
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   UserController userController = Get.find();
@@ -19,9 +20,10 @@ class SignUpPage extends StatelessWidget {
   void formSubmit() {
     _formKey.currentState!.save();
     if (_formKey.currentState!.validate()) {
-      debugPrint('Email:$email  şifre: $password');
+      debugPrint('Email:$email  şifre: $password   username: $userName');
       if (email != null && password != null) {
-        userController.registerUser(email: email!, password: password!);
+        userController.registerUser(
+            email: email!, password: password!, userName: userName);
       }
     }
   }
@@ -67,6 +69,14 @@ class SignUpPage extends StatelessWidget {
                               onSaved: (String? val) {
                                 email = val;
 
+                                for (int i = 0; i < email!.length; i++) {
+                                  if (email![i] != '@') {
+                                    userName = userName + email![i];
+                                  } else {
+                                    break;
+                                  }
+                                }
+                                debugPrint(userName);
                               },
                               validator: (String? value) {
                                 if (value != null) {
@@ -141,9 +151,7 @@ class SignUpPage extends StatelessWidget {
               height: 55.h,
             ),
             CustomButton(
-              onPressed: () {
-
-              },
+              onPressed: () {},
               width: 64.w,
               height: 34.h,
               radius: 10.sp,

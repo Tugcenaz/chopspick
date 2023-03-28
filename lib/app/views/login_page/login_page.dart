@@ -13,6 +13,7 @@ class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
   String? email;
   String? password;
+  String userName = '';
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   UserController userController = Get.find();
@@ -20,9 +21,9 @@ class LoginPage extends StatelessWidget {
   void formSubmit() {
     _formKey.currentState!.save();
     if (_formKey.currentState!.validate()) {
-      debugPrint('Email:$email  şifre: $password');
+      debugPrint('Email:$email  şifre: $password username: $userName');
       if (email != null && password != null) {
-        userController.loginUser(email: email!, password: password!);
+        userController.loginUser(email: email!, password: password!,userName: userName);
       }
     }
   }
@@ -67,6 +68,14 @@ class LoginPage extends StatelessWidget {
                                   const InputDecoration(labelText: 'Email'),
                               onSaved: (String? val) {
                                 email = val;
+                                for (int i = 0; i < email!.length; i++) {
+                                  if (email![i] != '@') {
+                                    userName = userName + email![i];
+                                  } else {
+                                    break;
+                                  }
+                                }
+                                debugPrint(userName);
                               },
                               validator: (String? value) {
                                 if (value != null) {
