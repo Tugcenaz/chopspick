@@ -9,6 +9,7 @@ class UserController extends GetxController {
   AuthService authService = Get.find();
   DBService dbService = Get.find();
   Rx<UserModel> user = UserModel().obs;
+  RxBool isUpdate = false.obs;
 
   registerUser(
       {required String email,
@@ -60,8 +61,18 @@ class UserController extends GetxController {
 
       user.value = userModel!;
     }
-    if (user != null) {
-      debugPrint('Giriş başarılı');
+    debugPrint('Giriş başarılı');
+  }
+
+  updateUserName({required String userName}) async {
+    var uid = await authService.currentUser();
+    if (uid != null) {
+      var userModel = await dbService.getUser(uid);
+      if (userModel != null) {
+        userModel.userName = userName;
+        user.value = userModel;
+        dbService.saveUser(user.value);
+      }
     }
   }
 }

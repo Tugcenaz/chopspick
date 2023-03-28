@@ -23,7 +23,8 @@ class LoginPage extends StatelessWidget {
     if (_formKey.currentState!.validate()) {
       debugPrint('Email:$email  şifre: $password username: $userName');
       if (email != null && password != null) {
-        userController.loginUser(email: email!, password: password!,userName: userName);
+        userController.loginUser(
+            email: email!, password: password!, userName: userName);
       }
     }
   }
@@ -68,6 +69,7 @@ class LoginPage extends StatelessWidget {
                                   const InputDecoration(labelText: 'Email'),
                               onSaved: (String? val) {
                                 email = val;
+
                                 for (int i = 0; i < email!.length; i++) {
                                   if (email![i] != '@') {
                                     userName = userName + email![i];
@@ -84,6 +86,7 @@ class LoginPage extends StatelessWidget {
                                     return 'Geçersiz email';
                                   }
                                 }
+                                return null;
                               },
                             ),
                             TextFormField(
@@ -95,6 +98,7 @@ class LoginPage extends StatelessWidget {
                                 if (value!.length < 6) {
                                   return 'Şifre en az 6 karakter olmalı!';
                                 }
+                                return null;
                               },
                               decoration:
                                   const InputDecoration(labelText: 'Şifre'),

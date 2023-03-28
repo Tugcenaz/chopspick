@@ -164,10 +164,10 @@ class HomePage extends StatelessWidget {
             backgroundImage: NetworkImage(
                 userController.user.value.picture ?? Constants.profilePhoto)),
       ),
-      title: Text(
+      title: Obx(() => Text(
         'HI, ${userController.user.value.userName}',
         style: TextStyles.titleBlackTextStyle1(fontSize: 20.sp),
-      ),
+      ),),
       actions: [
         GestureDetector(
             onTap: () {
