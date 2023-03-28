@@ -29,6 +29,9 @@ class CustomColors {
   static const bottomNavBarActiveColor = Color(0xFFCE1973);
   static const priceYellowColor = Color(0xFFB4AC03);
 
+  static const greenButtonColor = Color(0xFF0a521b);
+  static const redButtonColor = Color(0xFF99060d);
+
 
 
   static const detailPageLinearGradientPink = Color(0xFFD11770);

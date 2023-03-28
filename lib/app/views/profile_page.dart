@@ -1,5 +1,6 @@
-
+import 'package:chopspick/app/components/custom_button.dart';
 import 'package:chopspick/app/controllers/user_controller.dart';
+import 'package:chopspick/app/views/bottom_nav_bar.dart';
 import 'package:chopspick/core/theme/colors.dart';
 import 'package:chopspick/core/theme/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,6 @@ class _ProfilePageState extends State<ProfilePage> {
   TextEditingController textEditingController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String? userName;
-
 
   void formSubmit() {
     _formKey.currentState!.save();
@@ -42,7 +42,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 34.0.w, vertical: 80.h),
+        padding: EdgeInsets.symmetric(horizontal: 34.0.w, vertical: 180.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -51,7 +51,7 @@ class _ProfilePageState extends State<ProfilePage> {
               style: TextStyles.titleBlackTextStyle1(fontSize: 18.sp),
             ),
             SizedBox(
-              height: 20.h,
+              height: 30.h,
             ),
             Form(
               key: _formKey,
@@ -79,11 +79,34 @@ class _ProfilePageState extends State<ProfilePage> {
                 },
               ),
             ),
-            ElevatedButton(
-                onPressed: () {
-                  formSubmit();
-                },
-                child: const Text('Güncelle')),
+            SizedBox(
+              height: 20.h,
+            ),
+            Row(mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CustomButton(
+                  onPressed: () {
+                   goToPage(0);
+                  },
+                  title: 'İptal',
+                  color: CustomColors.redButtonColor,
+                  fontSize: 22.sp,
+                  width: 120.w,
+                  height: 40.h,
+                ),
+                SizedBox(width: 20.w,),
+                CustomButton(
+                  onPressed: () {
+                    formSubmit();
+                  },
+                  title: 'Onayla',
+                  color:CustomColors.greenButtonColor,
+                  fontSize: 22.sp,
+                  width: 120.w,
+                  height: 40.h,
+                ),
+              ],
+            ),
           ],
         ),
       ),
