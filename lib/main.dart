@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (BuildContext context, Widget? child) {
-        return GetMaterialApp(
+        return GetMaterialApp(debugShowCheckedModeBanner: false,
           initialBinding: InitialBinding(),
           title: 'Flutter Demo',
           theme: ThemeData(

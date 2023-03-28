@@ -169,17 +169,13 @@ class HomePage extends StatelessWidget {
         style: TextStyles.titleBlackTextStyle1(fontSize: 20.sp),
       ),),
       actions: [
-        GestureDetector(
-            onTap: () {
-              userController.signOut();
-            },
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-              child: Image.asset(
-                Constants.notificationIcon,
-                width: 20.w,
-              ),
-            )),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.0.w),
+          child: Image.asset(
+            Constants.notificationIcon,
+            width: 20.w,
+          ),
+        ),
       ],
     );
   }

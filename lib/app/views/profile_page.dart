@@ -4,6 +4,7 @@ import 'package:chopspick/app/views/bottom_nav_bar.dart';
 import 'package:chopspick/core/theme/colors.dart';
 import 'package:chopspick/core/theme/text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -82,11 +83,12 @@ class _ProfilePageState extends State<ProfilePage> {
             SizedBox(
               height: 20.h,
             ),
-            Row(mainAxisAlignment: MainAxisAlignment.center,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CustomButton(
                   onPressed: () {
-                   goToPage(0);
+                    goToPage(0);
                   },
                   title: 'İptal',
                   color: CustomColors.redButtonColor,
@@ -94,19 +96,32 @@ class _ProfilePageState extends State<ProfilePage> {
                   width: 120.w,
                   height: 40.h,
                 ),
-                SizedBox(width: 20.w,),
+                SizedBox(
+                  width: 20.w,
+                ),
                 CustomButton(
                   onPressed: () {
                     formSubmit();
                   },
                   title: 'Onayla',
-                  color:CustomColors.greenButtonColor,
+                  color: CustomColors.greenButtonColor,
                   fontSize: 22.sp,
                   width: 120.w,
                   height: 40.h,
                 ),
               ],
             ),
+            SizedBox(
+              height: 60.h,
+            ),
+            Bounceable(
+                onTap: () {
+                  userController.signOut();
+                },
+                child: Text(
+                  'Çıkış yap',
+                  style: TextStyles.titleGreyTextStyle1(fontSize: 18.sp),
+                ))
           ],
         ),
       ),

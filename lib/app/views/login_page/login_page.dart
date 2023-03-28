@@ -147,7 +147,7 @@ class LoginPage extends StatelessWidget {
               height: 55.h,
             ),
             Text(
-              '-Şunladan biriyle giriş yap-',
+              '-Şunlardan biriyle giriş yap-',
               style: TextStyles.titleBlackTextStyle1(fontSize: 15.sp),
             ),
             SizedBox(
