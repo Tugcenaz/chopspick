@@ -46,7 +46,7 @@ class HomePage extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 34.0.w),
           child: TextFormField(
             decoration: InputDecoration(
-                contentPadding: EdgeInsets.all(16),
+                contentPadding: EdgeInsets.all(16.sp),
                 hintText: 'Search',
                 hintStyle: TextStyles.titleGreyTextStyle1(),
                 fillColor: CustomColors.textFormFieldFillColor,

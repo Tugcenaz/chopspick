@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chopspick/app/components/cached_image_widget.dart';
 import 'package:chopspick/app/controllers/basket_controller.dart';
 import 'package:chopspick/app/controllers/user_controller.dart';
@@ -189,7 +188,9 @@ class _BasketPageState extends State<BasketPage> {
               decoration: BoxDecoration(
                   color: CustomColors.containerGradientColorTop,
                   borderRadius: BorderRadius.circular(20.sp)),
-              child: CachedImageWidget(imageUrl: imageUrl,),
+              child: CachedImageWidget(
+                imageUrl: imageUrl,
+              ),
             ),
             SizedBox(
               width: 10.w,
@@ -199,11 +200,28 @@ class _BasketPageState extends State<BasketPage> {
               children: [
                 Padding(
                   padding: EdgeInsets.only(left: 10.0.w),
-                  child: Text(
-                    basketController.basketItemList[index].productModel.name!,
-                    style: TextStyles.titleBlackTextStyle1(
-                      fontSize: 20.sp,
-                    ),
+                  child: Row(
+                    children: [
+                      Text(
+                        basketController
+                            .basketItemList[index].productModel.name!,
+                        style: TextStyles.titleBlackTextStyle1(
+                          fontSize: 16.sp,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 24.0.w),
+                        child: Bounceable(
+                          onTap: () {
+                            basketController.decreaseItem(
+                                basketController
+                                    .basketItemList[index].productModel,
+                                true);
+                          },
+                          child: Image.asset(Constants.deleteIcon),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 SizedBox(
@@ -225,8 +243,10 @@ class _BasketPageState extends State<BasketPage> {
                     children: [
                       IconButton(
                           onPressed: () {
-                            basketController.decreaseItem(basketController
-                                .basketItemList[index].productModel);
+                            basketController.decreaseItem(
+                                basketController
+                                    .basketItemList[index].productModel,
+                                false);
                           },
                           icon: Image.asset(Constants.pinkDecreaseIcon)),
                       Text(basketController.basketItemList[index].count

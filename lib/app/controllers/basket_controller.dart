@@ -53,10 +53,10 @@ class BasketController extends GetxController {
     }
   }
 
-  decreaseItem(ProductModel product) {
+  decreaseItem(ProductModel product,bool? isDelete) {
     for (int i = 0; i < basketItemList.length; i++) {
       if (basketItemList[i].productModel.productId == product.productId) {
-        if (basketItemList[i].count == 1) {
+        if (basketItemList[i].count == 1||isDelete==true) {
           basketItemList.remove(basketItemList[i]);
           basketItemListRefresh();
           return true;
