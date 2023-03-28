@@ -1,3 +1,4 @@
+
 import 'package:chopspick/app/controllers/products_controller.dart';
 import 'package:chopspick/app/controllers/user_controller.dart';
 import 'package:chopspick/app/services/db_service.dart';
@@ -66,21 +67,66 @@ class HomePage extends StatelessWidget {
         SizedBox(
           width: double.infinity,
           height: 120.h,
-          child: CategoriesListViewPage(),
+          child: const CategoriesListViewPage(),
         ),
         SizedBox(
-          height: 15.h,
+          height: 50.h,
         ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 34.0.w),
-          child: Container(
-            height: 180.h,
-            width: double.infinity,
-            color: Colors.pink,
-            child: const Text(
-              "promotion",
+        Stack(
+          clipBehavior: Clip.none,
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 34.0.w),
+              child: Container(
+                height: 140.h,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20.sp),
+                    gradient: const LinearGradient(
+                        transform: GradientRotation(120),
+                        colors: [
+                          CustomColors.promotionsGradient1,
+                          CustomColors.promotionsGradient2
+                        ])),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.0.w,vertical: 10.h),
+                  child: Column(mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Today\'s Offer',
+                        style: TextStyles.titleWhiteTextStyle1(
+                            fontSize: 17.sp, fontWeight: FontWeight.w400),
+                      ),
+                      Text(
+                        'Free Box of Fries',
+                        style: TextStyles.titleWhiteTextStyle1(
+                            fontSize: 22.sp, fontWeight: FontWeight.w600),
+                      ),
+                      Text(
+                        'On all others above \$200',
+                        style: TextStyles.titleWhiteTextStyle1(
+                            fontSize: 18.sp, fontWeight: FontWeight.w400),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
-          ),
+            Positioned(
+              left: 32.w,
+              top: -37.h,
+              child: Text(
+                "Promotions",
+                style: TextStyles.titleBlackTextStyle1(
+                    fontWeight: FontWeight.w600, fontSize: 23.sp),
+              ),
+            ),
+            Positioned(
+                right: -5.w,
+                top: -56.h,
+                child: Image.asset(Constants.friesImage)),
+          ],
         ),
         SizedBox(
           height: 8.h,

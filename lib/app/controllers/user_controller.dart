@@ -7,12 +7,12 @@ import 'package:get/get.dart';
 
 class UserController extends GetxController {
   AuthService authService = Get.find();
-  DBService dbService =Get.find();
+  DBService dbService = Get.find();
   Rx<UserModel> user = UserModel().obs;
 
   registerUser({required String email, required String password}) async {
     UserModel? userModel =
-        await authService.registerUser(email: email, password: password);
+    await authService.registerUser(email: email, password: password);
     if (userModel?.userId != null) {
       bool result = await dbService.saveUser(userModel!);
       if (result) {
@@ -30,15 +30,15 @@ class UserController extends GetxController {
     //nulll
     ///current userıd yi aldım authservisten
     ///firebase dbye sorgu atıcam diyecmki şu userıdli adamı bana getir
-    if (currentUserId!=null) {
-      UserModel? getUser=await dbService.readUser(currentUserId);
+    if (currentUserId != null) {
+      UserModel? getUser = await dbService.readUser(currentUserId);
       if (getUser != null) {
         user.value = getUser;
       }
-    }else {
+    } else {
       user.value = UserModel();
     }
-   debugPrint('benim user: ${user.value.toString()}');
+    debugPrint('benim user: ${user.value.toString()}');
   }
 
   signOut() async {
@@ -47,7 +47,8 @@ class UserController extends GetxController {
   }
 
   loginUser({required String email, required String password}) async {
-    UserModel? userModel = await authService.loginUser(email: email,password: password);
+    UserModel? userModel = await authService.loginUser(
+        email: email, password: password);
     if (userModel?.userId != null) {
       Get.offAll(() => LandingPage());
       user.value = userModel!;
@@ -56,4 +57,6 @@ class UserController extends GetxController {
       debugPrint('Giriş başarılı');
     }
   }
+
+
 }

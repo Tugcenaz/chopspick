@@ -20,6 +20,8 @@ class CustomColors {
   static const textFormFieldFillColor = Color(0xFFD9C9C9);
 
   static const onTappedContainerColor = Color(0xFFD21670);
+  static const promotionsGradient1 = Color(0xffd21670);
+  static const promotionsGradient2 = Color(0xff3e1f9f);
 
   static const containerGradientColorTop = Color(0xFFD9C9C9);
   static const containerGradientColorBottom = Color(0xFFD5D3D3);

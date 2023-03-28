@@ -12,6 +12,7 @@ class Constants {
   static const foodDessert = 'assets/images/food_dessert.png';
   static const healthyFood = 'assets/images/healthy_food.png';
   static const deleteIcon = 'assets/icons/delete.png';
+  static const friesImage = 'assets/images/fries.png';
 
   static String profilePhoto =
       'https://s3-alpha-sig.figma.com/img/47ca/00de/47addffa31953d37c466b1dbc9c674e3?Expires=1680480000&Signature=mavcAL4j~NVLMw8e-0K-lWbR~N4oaYBPPhdCALek17daEVB3IewpVjRKp02V7fQhCjxaJVAEFMnwxDeAU9f0xO8HV0jhwCo-9DWPfNceCml3TdaOjVbTZmmNuvAZ9kGO-z9FFw1s~CJO-dm-whV2w8pkrKmAlJp69rz6JqUZxLllNvfzUNHy~FFuvz6AdaS4VTn58EfG3rq9LqYtRDMOF6XEppfC0~ZQPzGYAp6dl6atc0FXV7HWjBveuswZQRke46Fd~vwWLBr~UXqLAxWfe5b3vR7s0mZOG2JZk7Y93MZdMKod9UF3GqE5gvwrx9q9MIeQXv-j5BUCxX5cBmHNCg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4';

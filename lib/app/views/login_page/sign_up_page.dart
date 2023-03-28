@@ -1,6 +1,5 @@
 import 'package:chopspick/app/components/custom_button.dart';
 import 'package:chopspick/app/controllers/user_controller.dart';
-import 'package:chopspick/app/views/login_page/login_page.dart';
 import 'package:chopspick/core/constants/constants.dart';
 import 'package:chopspick/core/theme/colors.dart';
 import 'package:chopspick/core/theme/text_styles.dart';
@@ -10,8 +9,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class SignUpPage extends StatelessWidget {
-  SignUpPage({Key? key}) : super(key: key);
-  String? email;
+   SignUpPage({Key? key}) : super(key: key);
+   String? email;
   String? password;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -67,6 +66,7 @@ class SignUpPage extends StatelessWidget {
                                   const InputDecoration(labelText: 'Email'),
                               onSaved: (String? val) {
                                 email = val;
+
                               },
                               validator: (String? value) {
                                 if (value != null) {
@@ -141,7 +141,9 @@ class SignUpPage extends StatelessWidget {
               height: 55.h,
             ),
             CustomButton(
-              onPressed: () {},
+              onPressed: () {
+
+              },
               width: 64.w,
               height: 34.h,
               radius: 10.sp,

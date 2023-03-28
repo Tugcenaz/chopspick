@@ -1,7 +1,6 @@
 import 'package:chopspick/app/components/dialogs.dart';
 import 'package:chopspick/app/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../core/constants/service_errors.dart';
@@ -23,9 +22,7 @@ class AuthService {
           createdAt:
               credential.user?.metadata.creationTime?.millisecondsSinceEpoch,
         );
-        Dialogs.showSuccesDialog(
-            message:
-            "Harika! Kayıt tamamlandı.");
+        Dialogs.showSuccesDialog(message: "Harika! Kayıt tamamlandı.");
         return userModel;
       }
     } on FirebaseAuthException catch (e) {
