@@ -31,9 +31,9 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(resizeToAvoidBottomInset: false,
       body: Stack(
-        alignment: AlignmentDirectional.bottomEnd,
+       alignment: AlignmentDirectional.bottomStart,
         children: [
           Container(
             decoration: const BoxDecoration(
@@ -54,7 +54,8 @@ class LoginPage extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 38.w),
                     child: Text(
                       'Hesabına giriş yap',
-                      style: TextStyles.titleBlackTextStyle1(fontSize: 20.sp),
+                      style:
+                          TextStyles.titleBlackTextStyle1(fontSize: 20.sp),
                     ),
                   ),
                   Form(

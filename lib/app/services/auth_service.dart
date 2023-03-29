@@ -42,6 +42,7 @@ class AuthService {
 
   signOut() async {
     await _firebaseAuth.signOut();
+
   }
 
   Future<UserModel?> loginUser(
@@ -61,5 +62,10 @@ class AuthService {
     }
   }
 
+
+  Future<bool?> deleteUser() async {
+    await _firebaseAuth.currentUser?.delete();
+    return true;
+  }
 
 }

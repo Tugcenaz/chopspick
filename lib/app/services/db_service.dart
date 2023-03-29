@@ -15,7 +15,7 @@ class DBService {
           .set(userModel.toMap());
       return true;
     } on Exception catch (e) {
-      debugPrint("db error = ${e}");
+      debugPrint("db error = $e");
       return false;
     }
   }
@@ -63,5 +63,10 @@ class DBService {
       debugPrint("db getUSer error = $e");
       return false;
     }
+  }
+
+  Future<bool?> deleteUser(UserModel userModel) async {
+    await firestore.collection('users').doc(userModel.userId ?? '').delete();
+    return true;
   }
 }

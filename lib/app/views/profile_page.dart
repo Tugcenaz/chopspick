@@ -138,7 +138,18 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Text(
                   'Çıkış yap',
                   style: TextStyles.titleGreyTextStyle1(fontSize: 18.sp),
-                ))
+                )),
+            SizedBox(
+              height: 20.h,
+            ),
+            Bounceable(
+                onTap: () {
+                  userController.deleteUser();
+                },
+                child: Text(
+                  'hesabı sil',
+                  style: TextStyles.titleGreyTextStyle1(fontSize: 18.sp),
+                )),
           ],
         ),
       ),

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:chopspick/app/models/user_model.dart';
 import 'package:chopspick/app/services/auth_service.dart';
 import 'package:chopspick/app/services/db_service.dart';
@@ -90,5 +88,12 @@ class UserController extends GetxController {
         dbService.saveUser(user.value);
       }
     }
+  }
+
+  Future<bool?> deleteUser() async {
+    await authService.deleteUser();
+    await dbService.deleteUser(user.value);
+    currentUser();
+    return true;
   }
 }
