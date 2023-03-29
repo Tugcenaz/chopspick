@@ -118,7 +118,8 @@ class _BasketPageState extends State<BasketPage> {
                 Center(
                   child: CustomButton(
                     onPressed: () async {
-                      if (basketController.basketItemList.isNotEmpty) {
+                      if (basketController.basketItemList.isNotEmpty &&
+                          userController.user.value.balance! > getCost()) {
                         if (busy.value == false) {
                           try {
                             busy.value = true;
@@ -131,7 +132,9 @@ class _BasketPageState extends State<BasketPage> {
                                 basketController.basketItemList);
                             if (result == true) {
                               await Future.delayed(const Duration(seconds: 3));
+                              userController.updateBalance(getCost());
                               basketController.clearBasket();
+
                               _textEditingController.text = '';
                             }
                           } finally {
@@ -139,7 +142,11 @@ class _BasketPageState extends State<BasketPage> {
                           }
                         }
                       } else {
-                        Get.snackbar('Hata', 'Sepetin boş');
+                        if (basketController.basketItemList.isEmpty) {
+                          Get.snackbar('Hata', 'Sepetin boş');
+                        } else {
+                          Get.snackbar('Hata', 'Yetersiz bakiye');
+                        }
                       }
                     },
                     width: 349.w,

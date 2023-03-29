@@ -44,6 +44,7 @@ class DBService {
     } catch (e) {
       debugPrint("db getUSer error = $e");
     }
+    return null;
   }
 
   Future<bool?> saveOrder(

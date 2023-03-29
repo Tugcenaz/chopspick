@@ -114,9 +114,26 @@ class _ProfilePageState extends State<ProfilePage> {
             SizedBox(
               height: 60.h,
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Bakiye:',
+                  style: TextStyles.titleBlackTextStyle1(fontSize: 18.sp),
+                ),
+                Text(
+                  '${userController.user.value.balance}\$',
+                  style: TextStyles.titleBlackTextStyle1(fontSize: 18.sp),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 20.h,
+            ),
             Bounceable(
                 onTap: () {
                   userController.signOut();
+                  goToPage(0);
                 },
                 child: Text(
                   'Çıkış yap',

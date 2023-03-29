@@ -3,7 +3,7 @@ class UserModel {
   String? userId;
   String? picture;
   String? userName;
-  double? balance;
+  int? balance;
   int? createdAt;
 
   UserModel(

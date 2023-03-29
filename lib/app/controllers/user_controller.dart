@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:chopspick/app/models/user_model.dart';
 import 'package:chopspick/app/services/auth_service.dart';
 import 'package:chopspick/app/services/db_service.dart';
@@ -9,7 +11,6 @@ class UserController extends GetxController {
   AuthService authService = Get.find();
   DBService dbService = Get.find();
   Rx<UserModel> user = UserModel().obs;
-  RxBool isUpdate = false.obs;
 
   registerUser(
       {required String email,
@@ -58,7 +59,6 @@ class UserController extends GetxController {
         email: email, password: password, userName: userName);
     if (userModel?.userId != null) {
       Get.offAll(() => LandingPage());
-
       user.value = userModel!;
     }
     debugPrint('Giriş başarılı');
@@ -70,6 +70,22 @@ class UserController extends GetxController {
       var userModel = await dbService.getUser(uid);
       if (userModel != null) {
         userModel.userName = userName;
+        user.value = userModel;
+        dbService.saveUser(user.value);
+      }
+    }
+  }
+
+  updateBalance(int cost) async {
+    var uid = await authService.currentUser();
+    if (uid != null) {
+      var userModel = await dbService.getUser(uid);
+      if (userModel != null) {
+        int? balance = userModel.balance;
+        debugPrint('cost:$cost)');
+        balance = balance! - cost;
+        debugPrint('balance:$balance');
+        userModel.balance = balance;
         user.value = userModel;
         dbService.saveUser(user.value);
       }
