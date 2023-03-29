@@ -30,7 +30,7 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(resizeToAvoidBottomInset: false,
       body: Stack(
         alignment: AlignmentDirectional.bottomEnd,
         children: [
