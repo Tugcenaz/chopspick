@@ -35,7 +35,7 @@ class _BasketPageState extends State<BasketPage> {
     for (int i = 0; i < basketController.basketItemList.length; i++) {
       var count = basketController.basketItemList[i].count;
       for (int j = 0; j < count; j++) {
-        // debugPrint("tuğçenin döngüsü");
+
         cost = basketController.basketItemList[i].productModel.price! + cost;
       }
     }
