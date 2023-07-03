@@ -14,6 +14,7 @@ class ProductController extends GetxController {
   ///ürünleirn listesi
   RxList<ProductModel> productList = <ProductModel>[].obs;
 
+
   selectCategory(CategoryModel category) {
     selectedCategory.value = category;
     debugPrint(selectedCategory.value.toString());

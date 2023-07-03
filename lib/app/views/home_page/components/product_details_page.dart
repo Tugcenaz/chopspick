@@ -16,7 +16,7 @@ class ProductDetailsPage extends StatelessWidget {
   final ProductModel productModel;
 
   ProductDetailsPage({Key? key, required this.productModel}) : super(key: key);
-  final ProductController productController = Get.find();
+  final ProductController productController =Get.find();
   final BasketController basketController = Get.find();
   final UserController userController = Get.find();
   RxInt addCount = 1.obs;
@@ -91,15 +91,14 @@ class ProductDetailsPage extends StatelessWidget {
                   child: CustomButton(
                     onPressed: () {
                       basketController.addProduct(productModel, addCount.value);
-
-                      for (int i = 0;
+                     /* for (int i = 0;
                       i < basketController.basketItemList.length;
                       i++) {
                         debugPrint(
                             "item = ${basketController.basketItemList[i]
                                 .productModel.name} count = ${basketController
                                 .basketItemList[i].count}");
-                      }
+                      }*/
                       Get.back();
                     },
                     width: 329.w,
@@ -143,7 +142,7 @@ class ProductDetailsPage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          productModel.name!,
+          productModel.name??'',
           style: TextStyles.titleBlackTextStyle1(
               fontWeight: FontWeight.w600, fontSize: 20.sp),
         ),

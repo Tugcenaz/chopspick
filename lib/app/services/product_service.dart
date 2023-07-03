@@ -26,6 +26,7 @@ class ProductService {
       allProduct = await firestore.collection('products').limit(50).get();
       for (var element in allProduct.docs) {
         productList.add(ProductModel.fromMap(element.data()));
+
       }
       return productList;
     } else {

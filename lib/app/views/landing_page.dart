@@ -1,7 +1,6 @@
 import 'package:chopspick/app/controllers/user_controller.dart';
 import 'package:chopspick/app/views/bottom_nav_bar.dart';
 import 'package:chopspick/app/views/intro_page.dart';
-import 'package:chopspick/app/views/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
