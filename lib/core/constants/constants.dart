@@ -14,6 +14,10 @@ class Constants {
   static const starIcon = 'assets/icons/star_icon.png';
   static const pinkAddIcon = 'assets/icons/pink_add_icon.png';
   static const pinkDecreaseIcon = 'assets/icons/decrease_icon.png';
+  static const open_eye = 'assets/icons/open_eye.svg';
+  static const off_eye = 'assets/icons/off_eye.svg';
+
+
 
 
 

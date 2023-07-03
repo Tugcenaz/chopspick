@@ -58,8 +58,9 @@ class UserController extends GetxController {
     if (userModel?.userId != null) {
       Get.offAll(() => LandingPage());
       user.value = userModel!;
+      debugPrint('Giriş başarılı');
     }
-    debugPrint('Giriş başarılı');
+
   }
 
   updateUserName({required String userName}) async {
@@ -96,4 +97,9 @@ class UserController extends GetxController {
     currentUser();
     return true;
   }
+
+
+
+
+
 }

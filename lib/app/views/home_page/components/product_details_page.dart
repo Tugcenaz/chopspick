@@ -1,8 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chopspick/app/components/cached_image_widget.dart';
 import 'package:chopspick/app/components/custom_button.dart';
 import 'package:chopspick/app/controllers/basket_controller.dart';
 import 'package:chopspick/app/controllers/products_controller.dart';
+import 'package:chopspick/app/controllers/user_controller.dart';
 import 'package:chopspick/app/models/product_model.dart';
 import 'package:chopspick/core/constants/constants.dart';
 import 'package:chopspick/core/theme/colors.dart';
@@ -18,6 +18,7 @@ class ProductDetailsPage extends StatelessWidget {
   ProductDetailsPage({Key? key, required this.productModel}) : super(key: key);
   final ProductController productController = Get.find();
   final BasketController basketController = Get.find();
+  final UserController userController = Get.find();
   RxInt addCount = 1.obs;
 
   @override
@@ -92,10 +93,12 @@ class ProductDetailsPage extends StatelessWidget {
                       basketController.addProduct(productModel, addCount.value);
 
                       for (int i = 0;
-                          i < basketController.basketItemList.length;
-                          i++) {
+                      i < basketController.basketItemList.length;
+                      i++) {
                         debugPrint(
-                            "item = ${basketController.basketItemList[i].productModel.name} count = ${basketController.basketItemList[i].count}");
+                            "item = ${basketController.basketItemList[i]
+                                .productModel.name} count = ${basketController
+                                .basketItemList[i].count}");
                       }
                       Get.back();
                     },
@@ -154,7 +157,7 @@ class ProductDetailsPage extends StatelessWidget {
                 },
                 icon: Image.asset(Constants.pinkDecreaseIcon)),
             Obx(
-              () => Text(addCount.value.toString()),
+                  () => Text(addCount.value.toString()),
             ),
             IconButton(
                 onPressed: () {
@@ -190,19 +193,34 @@ class ProductDetailsPage extends StatelessWidget {
             ],
           ),
         ),
-        Text(
-          '\$${productModel.price}',
-          style: TextStyles.titleBlackTextStyle1(
-              color: CustomColors.priceYellowColor,
-              fontSize: 26.sp,
-              fontWeight: FontWeight.w600),
+        Row(
+          children: [
+            Text(
+              '\$${productModel.price}',
+              style: TextStyles.titleBlackTextStyle1(
+                  color: CustomColors.priceYellowColor,
+                  fontSize: 26.sp,
+                  fontWeight: FontWeight.w600),
+            ),
+            IconButton(
+                onPressed: () {
+                  productController.saveFavouritesProduct(
+                      userId: userController.user.value.userId ?? '',
+                      productModel: productModel);
+                  // userController.user.value.userId;
+                },
+                icon: Icon(
+                  CupertinoIcons.heart,
+                  size: 28.sp,
+                  color: Colors.grey,
+                ))
+          ],
         ),
       ],
     );
   }
 
   Container _buildTopContainer() {
-    String? imageUrl = productModel.picture;
     return Container(
       height: double.infinity,
       width: double.infinity,
@@ -211,9 +229,9 @@ class ProductDetailsPage extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-            CustomColors.detailPageLinearGradientPink,
-            CustomColors.detailPageLinearGradientPurple
-          ])),
+                CustomColors.detailPageLinearGradientPink,
+                CustomColors.detailPageLinearGradientPurple
+              ])),
       child: Stack(
         alignment: Alignment.topCenter,
         children: [
@@ -223,7 +241,9 @@ class ProductDetailsPage extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: 120.0.h, horizontal: 60.w),
-            child: CachedImageWidget(imageUrl: productModel.picture,),
+            child: CachedImageWidget(
+              imageUrl: productModel.picture,
+            ),
           ),
           Positioned(
             left: 2.w,

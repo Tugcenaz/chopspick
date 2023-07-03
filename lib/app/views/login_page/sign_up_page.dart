@@ -6,6 +6,7 @@ import 'package:chopspick/core/theme/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class SignUpPage extends StatelessWidget {
@@ -13,6 +14,7 @@ class SignUpPage extends StatelessWidget {
   String? email;
   String? password;
   String userName = '';
+  RxBool isOnTap = true.obs;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   UserController userController = Get.find();
@@ -30,7 +32,8 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(resizeToAvoidBottomInset: false,
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Stack(
         alignment: AlignmentDirectional.bottomEnd,
         children: [
@@ -57,38 +60,41 @@ class SignUpPage extends StatelessWidget {
                     ),
                   ),
                   Form(
-                      key: _formKey,
-                      child: Padding(
-                        padding: EdgeInsets.all(40.0.sp),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            TextFormField(
-                              decoration:
-                                  const InputDecoration(labelText: 'Email'),
-                              onSaved: (String? val) {
-                                email = val;
-
-                                for (int i = 0; i < email!.length; i++) {
-                                  if (email![i] != '@') {
-                                    userName = userName + email![i];
-                                  } else {
-                                    break;
-                                  }
-                                }
-                                debugPrint(userName);
-                              },
-                              validator: (String? value) {
-                                if (value != null) {
-                                  bool isEmail = GetUtils.isEmail(value);
-                                  if (isEmail == false) {
-                                    return 'Geçersiz email';
-                                  }
-                                }
-                              },
+                    key: _formKey,
+                    child: Padding(
+                      padding: EdgeInsets.all(40.0.sp),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          TextFormField(
+                            decoration: const InputDecoration(
+                              label: Text('E-mail'),
                             ),
-                            TextFormField(
-                              obscureText: true,
+                            onSaved: (String? val) {
+                              email = val;
+
+                              for (int i = 0; i < email!.length; i++) {
+                                if (email![i] != '@') {
+                                  userName = userName + email![i];
+                                } else {
+                                  break;
+                                }
+                              }
+                              debugPrint(userName);
+                            },
+                            validator: (String? value) {
+                              if (value != null) {
+                                bool isEmail = GetUtils.isEmail(value);
+                                if (isEmail == false) {
+                                  return 'Geçersiz email';
+                                }
+                              }
+                              return null;
+                            },
+                          ),
+                          Obx(
+                            () => TextFormField(
+                              obscureText: isOnTap.value,
                               onSaved: (String? val) {
                                 password = val;
                               },
@@ -96,13 +102,44 @@ class SignUpPage extends StatelessWidget {
                                 if (value!.length < 6) {
                                   return 'Şifre en az 6 karakter olmalı!';
                                 }
+                                return null;
                               },
-                              decoration:
-                                  const InputDecoration(labelText: 'Şifre'),
-                            )
-                          ],
-                        ),
-                      )),
+                              decoration: InputDecoration(
+                                label: const Text('Şifre'),
+                                suffixIcon: IconButton(
+                                  onPressed: () {
+                                    isOnTap.value = !isOnTap.value;
+                                    debugPrint(isOnTap.value.toString());
+                                  },
+                                  icon: isOnTap.value == true
+                                      ? Padding(
+                                          padding: EdgeInsets.only(top: 10.0.h),
+                                          child: SizedBox(width: 25.w,height: 25.h,
+                                            child: SizedBox(
+                                              width: 25.w,
+                                              height: 25.h,
+                                              child: SvgPicture.asset(
+                                                  Constants.off_eye),
+                                            ),
+                                          ),
+                                        )
+                                      : Padding(
+                                          padding: EdgeInsets.only(top: 14.0.h),
+                                          child: SizedBox(
+                                            width: 25.w,
+                                            height: 25.h,
+                                            child: SvgPicture.asset(
+                                                Constants.open_eye),
+                                          ),
+                                        ),
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

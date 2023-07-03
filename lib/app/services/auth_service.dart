@@ -23,7 +23,7 @@ class AuthService {
           createdAt:
               credential.user?.metadata.creationTime?.millisecondsSinceEpoch,
         );
-        Dialogs.showSuccesDialog(message: "Harika! Kayıt tamamlandı.");
+        Get.snackbar('Harika', 'Kayıt tamamlandı');
         return userModel;
       }
     } on FirebaseAuthException catch (e) {

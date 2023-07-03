@@ -1,5 +1,7 @@
 import 'package:chopspick/app/models/product_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ProductService {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -29,7 +31,8 @@ class ProductService {
     } else {
       var selectedProducts = await firestore
           .collection('products')
-          .where('categoryId', isEqualTo: categoryId).limit(50)
+          .where('categoryId', isEqualTo: categoryId)
+          .limit(50)
           .get();
       productList = [];
       for (var element in selectedProducts.docs) {
@@ -38,4 +41,82 @@ class ProductService {
       return productList;
     }
   }
+
+  Future<bool?> saveFavouriteProduct(
+      {required String userId, required ProductModel productModel}) async {
+    RxList<ProductModel>? favouriteProductList = <ProductModel>[].obs;
+    if (favouriteProductList.isEmpty) {
+      favouriteProductList.value = [
+        ...[productModel]
+      ];
+      debugPrint(favouriteProductList.value.toString());
+      firestore
+          .collection('users')
+          .doc(userId)
+          .collection('favourites')
+          .add(productModel.toMap());
+      return true;
+    } else {
+      for (var item in favouriteProductList) {
+        if (productModel.productId != item.productId) {
+          favouriteProductList.value = [
+            ...[productModel]
+          ];
+          firestore
+              .collection('users')
+              .doc(userId)
+              .collection('favourites')
+              .add(productModel.toMap());
+
+          return true;
+        }
+        return true;
+      }
+    }
+  }
 }
+/*
+
+
+try {
+      QuerySnapshot<Map<String, dynamic>> allProduct = await firestore
+          .collection('users')
+          .doc(userId)
+          .collection('favourites')
+          .get();
+      for (var element in allProduct.docs) {
+        var list;
+        list.add(ProductModel.fromMap(element.data()));
+        favouriteProductList=list;
+      }
+      if (favouriteProductList.isEmpty) {
+        debugPrint('Eklenecek liste boş');
+        await firestore
+            .collection('users')
+            .doc(userId)
+            .collection('favourites')
+            .add(productModel.toMap());
+        return true;
+      } else {
+        for (var element in favouriteProductList) {
+          if (element.productId == productModel.productId) {
+            debugPrint('Bu ürün favlanmış');
+            return true;
+          } else {
+            debugPrint('Eklenecek');
+
+            await firestore
+                .collection('users')
+                .doc(userId)
+                .collection('favourites')
+                .add(productModel.toMap());
+            return true;
+          }
+        }
+      }
+    } on Exception catch (e) {
+      debugPrint("db saveFavouriteProduct error = $e");
+      return false;
+    }
+
+ */

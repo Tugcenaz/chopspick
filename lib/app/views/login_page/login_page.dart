@@ -7,6 +7,7 @@ import 'package:chopspick/core/theme/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class LoginPage extends StatelessWidget {
@@ -14,6 +15,7 @@ class LoginPage extends StatelessWidget {
   String? email;
   String? password;
   String userName = '';
+  RxBool isOnTap = true.obs;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   UserController userController = Get.find();
@@ -31,9 +33,10 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(resizeToAvoidBottomInset: false,
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Stack(
-       alignment: AlignmentDirectional.bottomStart,
+        alignment: AlignmentDirectional.bottomStart,
         children: [
           Container(
             decoration: const BoxDecoration(
@@ -54,8 +57,7 @@ class LoginPage extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 38.w),
                     child: Text(
                       'Hesabına giriş yap',
-                      style:
-                          TextStyles.titleBlackTextStyle1(fontSize: 20.sp),
+                      style: TextStyles.titleBlackTextStyle1(fontSize: 20.sp),
                     ),
                   ),
                   Form(
@@ -66,8 +68,9 @@ class LoginPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             TextFormField(
-                              decoration:
-                                  const InputDecoration(labelText: 'Email'),
+                              decoration: const InputDecoration(
+                                label: Text('E-mail'),
+                              ),
                               onSaved: (String? val) {
                                 email = val;
 
@@ -90,20 +93,47 @@ class LoginPage extends StatelessWidget {
                                 return null;
                               },
                             ),
-                            TextFormField(
-                              obscureText: true,
-                              onSaved: (String? val) {
-                                password = val;
-                              },
-                              validator: (String? value) {
-                                if (value!.length < 6) {
-                                  return 'Şifre en az 6 karakter olmalı!';
-                                }
-                                return null;
-                              },
-                              decoration:
-                                  const InputDecoration(labelText: 'Şifre'),
-                            )
+                            Obx(() => TextFormField(
+                                  obscureText: isOnTap.value,
+                                  onSaved: (String? val) {
+                                    password = val;
+                                  },
+                                  validator: (String? value) {
+                                    if (value!.length < 6) {
+                                      return 'Şifre en az 6 karakter olmalı!';
+                                    }
+                                    return null;
+                                  },
+                                  decoration: InputDecoration(
+                                    label: const Text('Şifre'),
+                                    suffixIcon: IconButton(
+                                        onPressed: () {
+                                          isOnTap.value = !isOnTap.value;
+                                          debugPrint(isOnTap.value.toString());
+                                        },
+                                        icon: isOnTap.value == true
+                                            ? Padding(
+                                                padding: EdgeInsets.only(
+                                                    top: 10.0.h),
+                                                child: SizedBox(
+                                                  width: 25.w,
+                                                  height: 25.h,
+                                                  child: SvgPicture.asset(
+                                                      Constants.off_eye),
+                                                ),
+                                              )
+                                            : Padding(
+                                                padding: EdgeInsets.only(
+                                                    top: 14.0.h),
+                                                child:SizedBox(
+                                                  width: 25.w,
+                                                  height: 25.h,
+                                                  child: SvgPicture.asset(
+                                                      Constants.open_eye),
+                                                ),
+                                              )),
+                                  ),
+                                )),
                           ],
                         ),
                       )),

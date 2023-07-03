@@ -69,4 +69,6 @@ class DBService {
     await firestore.collection('users').doc(userModel.userId ?? '').delete();
     return true;
   }
+
+
 }
