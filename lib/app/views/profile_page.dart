@@ -73,7 +73,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 validator: (String? name) {
                   if (name != null) {
                     if (name.length > 15) {
-                      return 'Kullanıcı adı 10 karakterden fazla olamaz';
+                      return 'Kullanıcı adı 15 karakterden fazla olamaz';
                     }
                   }
                   return null;

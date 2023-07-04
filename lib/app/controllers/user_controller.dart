@@ -60,7 +60,6 @@ class UserController extends GetxController {
       user.value = userModel!;
       debugPrint('Giriş başarılı');
     }
-
   }
 
   updateUserName({required String userName}) async {
@@ -82,8 +81,10 @@ class UserController extends GetxController {
       if (userModel != null) {
         int? balance = userModel.balance;
         debugPrint('cost:$cost)');
-        balance = balance! - cost;
-        debugPrint('balance:$balance');
+        if (balance != null) {
+          balance = balance - cost;
+          debugPrint('balance:$balance');
+        }
         userModel.balance = balance;
         user.value = userModel;
         dbService.saveUser(user.value);
@@ -97,9 +98,4 @@ class UserController extends GetxController {
     currentUser();
     return true;
   }
-
-
-
-
-
 }

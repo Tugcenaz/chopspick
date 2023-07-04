@@ -3,6 +3,7 @@ import 'package:chopspick/app/controllers/basket_controller.dart';
 import 'package:chopspick/app/controllers/user_controller.dart';
 import 'package:chopspick/app/models/order_model.dart';
 import 'package:chopspick/app/views/bottom_nav_bar.dart';
+import 'package:chopspick/app/views/home_page/home_page.dart';
 import 'package:chopspick/core/constants/constants.dart';
 import 'package:chopspick/core/theme/colors.dart';
 import 'package:chopspick/core/theme/text_styles.dart';
@@ -35,7 +36,6 @@ class _BasketPageState extends State<BasketPage> {
     for (int i = 0; i < basketController.basketItemList.length; i++) {
       var count = basketController.basketItemList[i].count;
       for (int j = 0; j < count; j++) {
-
         cost = basketController.basketItemList[i].productModel.price! + cost;
       }
     }
@@ -66,7 +66,7 @@ class _BasketPageState extends State<BasketPage> {
                   () => Expanded(
                     child: basketController.basketItemList.isEmpty
                         ? Text(
-                            'Sepetnize henüz ürün eklemediniz',
+                            'Sepetinize henüz ürün eklemediniz',
                             style: TextStyles.titleBlackTextStyle1(
                                 fontSize: 20.sp, fontWeight: FontWeight.w300),
                             textAlign: TextAlign.center,

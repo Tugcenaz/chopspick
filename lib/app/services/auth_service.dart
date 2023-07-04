@@ -54,7 +54,7 @@ class AuthService {
         UserModel userModel = UserModel(
             email: userCredential.user!.email,
             userId: userCredential.user!.uid,userName: userName);
-        Get.snackbar('Tammmamm', 'Giriş başarılı');
+        Get.snackbar('Harika', 'Giriş başarılı');
         return userModel;
       }
     } on FirebaseAuthException catch (e) {

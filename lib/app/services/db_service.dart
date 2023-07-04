@@ -50,11 +50,11 @@ class DBService {
   Future<bool?> saveOrder(
       OrderModel orderModel, List<BasketItemModel> products) async {
     try {
-      var user = await firestore.collection("orders").add(orderModel.toMap());
+      var ordersRef = await firestore.collection("orders").add(orderModel.toMap());
       for (var item in products) {
         await firestore
             .collection('orders')
-            .doc(user.id)
+            .doc(ordersRef.id)
             .collection('items')
             .add(item.toMap());
       }
